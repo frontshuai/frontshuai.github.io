@@ -4,10 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hexo</title>
+    <title>刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
-    <meta name="author" content="John Doe">
+    <meta name="author" content="刘宇帅">
+    
+    <meta name="description" content="程序学习之路">
     
     
     
@@ -27,14 +29,14 @@
       <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/author.png" alt="Hexo" title="Hexo"/></a>
+				<a href="/"><img src="/img/author.png" alt="刘宇帅的博客" title="刘宇帅的博客"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -47,7 +49,7 @@
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:hexo.liuyushuai.com">
 					</form>
 					
@@ -59,6 +61,55 @@
     </header>
     <div id="container">
       <div id="main">
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2017/02/08/nginx-conf配置详解/" title="nginx conf配置详解" itemprop="url">
+  
+    <h1 itemprop="name">nginx conf配置详解</h1>
+    
+     
+           <p itemprop="description" >#定义Nginx运行的用户和用户组user www www;
+#nginx进程数，建议设置为等于CPU总核心数。worker_processes 8;
+#全局错误日志定义类型，[ debug | info | notice | warn | error | crit ]error</p>
+        
+    
+    <time datetime="2017-02-08T11:25:09.000Z" itemprop="datePublished">2017-02-08</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2017/02/08/nginx-location路由匹配规则/" title="nginx location路由匹配规则" itemprop="url">
+  
+    <h1 itemprop="name">nginx location路由匹配规则</h1>
+    
+     
+           <p itemprop="description" >模式
+含义
+
+
+
+
+location = /uri
+= 表示精确匹配只有完全相等才会匹配成功
+
+
+location ^~ /uri
+^~ 表示对路由进行前缀匹配
+
+
+location ~ /uri
+~ 表示对路由进行正则匹配
+
+
+location ~* /uri
+~* 表示对路由</p>
+        
+    
+    <time datetime="2017-02-08T10:59:48.000Z" itemprop="datePublished">2017-02-08</time>
+  </a>
+</section>
 
   <section class="post" itemscope itemprop="blogPost">
   
@@ -76,18 +127,38 @@
 
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
 
   
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/location/" title="location">location<sup>2</sup></a></li>
+		
+			<li><a href="/tags/nginx/" title="nginx">nginx<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
 
   <div class="rsspart">
-	<a href="null" target="_blank" title="rss">RSS</a>
+	<a href="null" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
 </aside>
@@ -110,7 +181,7 @@
 	</div>
 		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2017 
 		
-		<a href="http://hexo.liuyushuai.com" target="_blank" title="John Doe">John Doe</a>
+		<a href="http://hexo.liuyushuai.com" target="_blank" title="刘宇帅">刘宇帅</a>
 		
 		</p>
 </div>
