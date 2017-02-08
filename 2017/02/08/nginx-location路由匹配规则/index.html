@@ -55,7 +55,7 @@ location ~* /uri
 				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -68,7 +68,7 @@ location ~* /uri
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:hexo.liuyushuai.com">
 					</form>
 					
@@ -92,7 +92,7 @@ location ~* /uri
     </p>
   <p class="article-time">
     <time datetime="2017-02-08T10:59:48.000Z" itemprop="datePublished">2017-02-08</time>
-    更新日期:<time datetime="2017-02-08T15:03:36.000Z" itemprop="dateModified">2017-02-08</time>
+    Updated:<time datetime="2017-02-08T15:26:44.000Z" itemprop="dateModified">2017-02-08</time>
     
   </p>
 </header>
@@ -100,7 +100,7 @@ location ~* /uri
 		
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
 		</div>
 		
@@ -146,6 +146,42 @@ location ~* /uri
 <li>然后匹配不带任何修饰的前缀匹配。</li>
 <li>最后是交给 / 通用匹配</li>
 <li>当有匹配成功时候，停止匹配，按当前匹配规则处理请求</li>
+</ol>
+<p>例子：</p>
+<pre><code>location = / {
+   echo &quot;规则A&quot;;
+}
+location = /login {
+   echo &quot;规则B&quot;;
+}
+location ^~ /static/ {
+   echo &quot;规则C&quot;;
+}
+location ^~ /static/files {
+    echo &quot;规则X&quot;;
+}
+location ~ \.(gif|jpg|png|js|css)$ {
+   echo &quot;规则D&quot;;
+}
+location ~* \.png$ {
+   echo &quot;规则E&quot;;
+}
+location /img {
+    echo &quot;规则Y&quot;;
+}
+location / {
+   echo &quot;规则F&quot;;
+}
+</code></pre><p>测试uri及nginx结果:</p>
+<ol>
+<li>访问根目录 /，比如 <a href="http://localhost/" target="_blank" rel="external">http://localhost/</a> 将匹配 规则A</li>
+<li>访问 <a href="http://localhost/login" target="_blank" rel="external">http://localhost/login</a> 将匹配 规则B，<a href="http://localhost/register" target="_blank" rel="external">http://localhost/register</a> 则匹配 规则F</li>
+<li>访问 <a href="http://localhost/static/a.html" target="_blank" rel="external">http://localhost/static/a.html</a> 将匹配 规则C</li>
+<li>访问 <a href="http://localhost/static/files/a.exe" target="_blank" rel="external">http://localhost/static/files/a.exe</a> 将匹配 规则X，虽然 规则C 也能匹配到，但因为最大匹配原则，最中选中了 规则X。你可以测试下，去掉规则 X ，则当前 URL 会匹配上 规则C。</li>
+<li>访问 <a href="http://localhost/a.gif" target="_blank" rel="external">http://localhost/a.gif</a>, <a href="http://localhost/b.jpg" target="_blank" rel="external">http://localhost/b.jpg</a> 将匹配 规则D 和 规则 E ，但是 规则 D 顺序优先，规则 E 不起作用，而 <a href="http://localhost/static/c.png" target="_blank" rel="external">http://localhost/static/c.png</a> 则优先匹配到 规则 C</li>
+<li>访问 <a href="http://localhost/a.PNG" target="_blank" rel="external">http://localhost/a.PNG</a> 则匹配 规则 E ，而不会匹配 规则 D ，因为 规则 E 不区分大小写。</li>
+<li>访问 <a href="http://localhost/img/a.gif" target="_blank" rel="external">http://localhost/img/a.gif</a> 会匹配上 规则D,虽然 规则Y 也可以匹配上，但是因为正则匹配优先，而忽略了 规则Y。</li>
+<li>访问 <a href="http://localhost/img/a.tiff" target="_blank" rel="external">http://localhost/img/a.tiff</a> 会匹配上 规则Y。</li>
 </ol>
   
 	</div>
@@ -200,20 +236,20 @@ location ~* /uri
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
+  <strong class="toc-title">Contents</strong>
   
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 			<li><a href="/categories/nginx/" title="nginx">nginx<sup>2</sup></a></li>
@@ -224,7 +260,7 @@ location ~* /uri
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			<li><a href="/tags/location/" title="location">location<sup>2</sup></a></li>
@@ -236,7 +272,7 @@ location ~* /uri
 
 
   <div class="rsspart">
-	<a href="null" target="_blank" title="rss">RSS 订阅</a>
+	<a href="null" target="_blank" title="rss">RSS</a>
 </div>
 
 </aside>
@@ -410,6 +446,13 @@ $(document).ready(function(){
 </script>
 
 
+
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.9.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
 
   </body>
 </html>
