@@ -4,12 +4,15 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>nginx日志分割 | 刘宇帅的博客</title>
+    <title>php链接mysql数据库的方式 | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。按天分割日志$time_iso8601格式如下：20">
+    <meta name="description" content="#mysql连接数据库共三种方式
+##1.mysql扩展
+
+Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使用 MySQLi 或 PDO_MySQL 扩展来替换之。参见 MySQL：选择 API 指南以及相关 FAQ 以获取更多信息。用以替代本函数的有：mysqli_co">
     
     
     
@@ -65,15 +68,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/nginx日志分割/" title="nginx日志分割" itemprop="url">nginx日志分割</a>
+      <a href="/2017/02/09/php链接mysql数据库的方式/" title="php链接mysql数据库的方式" itemprop="url">php链接mysql数据库的方式</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://hexo.liuyushuai.com" title="刘宇帅">刘宇帅</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:10:13.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:28:36.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-09T08:27:36.000Z" itemprop="datePublished">2017-02-09</time>
+    Updated:<time datetime="2017-02-09T08:28:09.000Z" itemprop="dateModified">2017-02-09</time>
     
   </p>
 </header>
@@ -85,45 +88,43 @@
 		
 		</div>
 		
-		<p>配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。<br>按天分割日志<br>$time_iso8601格式如下：2015-08-07T18:12:02+02:00<br>按天分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})&quot;) {
-    set $year $1;
-    set $month $2;
-    set $day $3;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-access.log;
-</code></pre><p>也可以使用Perl语法来捕获，如下：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})&quot;) {}
-access_log /data/logs/nginx/www.ttlsa.com-$year-$month-$day-access.log;
-</code></pre><p>按小时分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})T(\d{2})&quot;)
-{
-    set $year $1;
-    set $month $2;
-    set $day $3;
-    set $hour $4;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
-</code></pre>  
+		<p>#mysql连接数据库共三种方式</p>
+<p>##1.mysql扩展</p>
+<blockquote>
+<p><strong>Warning</strong><br>本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使用 MySQLi 或 PDO_MySQL 扩展来替换之。参见 MySQL：选择 API 指南以及相关 FAQ 以获取更多信息。用以替代本函数的有：<br>mysqli_connect()<br>PDO::__construct()</p>
+</blockquote>
+<p>在新写的代码中不建议使用该方式连接数据库。<br>详细介绍：<a href="http://php.net/manual/zh/book.mysql.php" target="_blank" rel="external">http://php.net/manual/zh/book.mysql.php</a></p>
+<p>##2.mysqli扩展(有时候称mysql增强扩展)<br>可以连接mysql4.1及以上版本，mysqli在php5及以上版本中支持。<br>相对于mysql扩展，mysqli增加了</p>
+<ul>
+<li>面向对象接口</li>
+<li>prepared语句支持（译注：关于prepare请参阅mysql相关文档）</li>
+<li>多语句执行支持</li>
+<li>事务支持</li>
+<li>增强的调试能力</li>
+<li>嵌入式服务支</li>
+</ul>
+<p>详细介绍：<a href="http://php.net/manual/zh/book.mysqli.php" target="_blank" rel="external">http://php.net/manual/zh/book.mysqli.php</a></p>
+<p>##PDO<br>PHP数据对象，是PHP应用中的一个数据库抽象层规范。PDO提供了一个统一的API接口可以使得你的PHP应用不去关心具体要 连接的数据库服务器系统类型。也就是说，如果你使用PDO的API，可以在任何需要的时候无缝切换数据库服务器，比如从Firebird 到MySQL，仅仅需要修改很少的PHP代码。<br>详细介绍：<a href="http://php.net/manual/zh/book.pdo.php" target="_blank" rel="external">http://php.net/manual/zh/book.pdo.php</a></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/nginx/">nginx</a><a href="/tags/日志分割/">日志分割</a>
+  <span></span> <a href="/tags/mysql/">mysql</a><a href="/tags/php/">php</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/nginx/">nginx</a>
+  <a class="article-category-link" href="/categories/php/">php</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/nginx日志分割/" data-title="nginx日志分割 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/09/php链接mysql数据库的方式/" data-title="php链接mysql数据库的方式 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -132,19 +133,11 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/09/php链接mysql数据库的方式/" title="php链接mysql数据库的方式">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  php链接mysql数据库的方式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/02/08/nginx-conf配置详解/"  title="nginx conf配置详解">
+<a href="/2017/02/09/nginx日志分割/"  title="nginx日志分割">
  <strong>NEXT:</strong><br/> 
- <span>nginx conf配置详解
+ <span>nginx日志分割
 </span>
 </a>
 </div>
