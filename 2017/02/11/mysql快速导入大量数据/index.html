@@ -4,16 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>php类型转换 | 刘宇帅的博客</title>
+    <title>mysql快速导入大量数据 | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="php类型转换一共三种方式
-在变量前加圆括号，括号内为目标类型&amp;lt;?php
-$a = (int)&amp;#39;11&amp;#39;;  // 把&amp;#39;11&amp;#39;转化为int型
-$b = (float)&amp;#39;11&amp;#39;; // 把&amp;#39;11&amp;#39;转化为float型
-使用intval,">
+    <meta name="description" content="因为Innodb类型的表是按照主键的顺序保存的，所以将导入的数据按照主键的顺序排列，可以有效的提高导入数据的效率。如果Innodb表没有主键，那么系统会默认创建一个内部列作为主键，所以如果可以给表创建一个主键，将可以利用这个优势提高导入数据的效率。
+
+在导入数据前执行SET UNIQUE_CHECK">
     
     
     
@@ -71,7 +69,7 @@ $b = (float)&amp;#39;11&amp;#39;; // 把&amp;#39;11&amp;#39;转化为float型
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/10/php类型转换/" title="php类型转换" itemprop="url">php类型转换</a>
+      <a href="/2017/02/11/mysql快速导入大量数据/" title="mysql快速导入大量数据" itemprop="url">mysql快速导入大量数据</a>
   </h1>
   <p class="article-author">By
     
@@ -82,8 +80,8 @@ $b = (float)&amp;#39;11&amp;#39;; // 把&amp;#39;11&amp;#39;转化为float型
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-10T06:51:31.000Z" itemprop="datePublished">2017-02-10</time>
-    更新日期:<time datetime="2017-02-10T06:57:46.000Z" itemprop="dateModified">2017-02-10</time>
+    <time datetime="2017-02-10T17:17:24.000Z" itemprop="datePublished">2017-02-11</time>
+    更新日期:<time datetime="2017-02-10T17:19:12.000Z" itemprop="dateModified">2017-02-11</time>
     
   </p>
 </header>
@@ -92,27 +90,24 @@ $b = (float)&amp;#39;11&amp;#39;; // 把&amp;#39;11&amp;#39;转化为float型
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在变量前加圆括号，括号内为目标类型"><span class="toc-number">1.</span> <span class="toc-text">在变量前加圆括号，括号内为目标类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用intval-floatval-strval函数转换"><span class="toc-number">2.</span> <span class="toc-text">使用intval,floatval,strval函数转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用settype函数"><span class="toc-number">3.</span> <span class="toc-text">使用settype函数</span></a></li></ol>
+		
 		</div>
 		
-		<p>php类型转换一共三种方式</p>
-<h2 id="在变量前加圆括号，括号内为目标类型"><a href="#在变量前加圆括号，括号内为目标类型" class="headerlink" title="在变量前加圆括号，括号内为目标类型"></a>在变量前加圆括号，括号内为目标类型</h2><pre><code>&lt;?php
-$a = (int)&#39;11&#39;;  // 把&#39;11&#39;转化为int型
-$b = (float)&#39;11&#39;; // 把&#39;11&#39;转化为float型
-</code></pre><h2 id="使用intval-floatval-strval函数转换"><a href="#使用intval-floatval-strval函数转换" class="headerlink" title="使用intval,floatval,strval函数转换"></a>使用intval,floatval,strval函数转换</h2><pre><code>&lt;?php
-$a = intval(&#39;11&#39;); // 把&#39;11&#39;转化为int型
-$b = floatval(&#39;11&#39;); // 把&#39;11&#39;转化为float型
-</code></pre><h2 id="使用settype函数"><a href="#使用settype函数" class="headerlink" title="使用settype函数"></a>使用settype函数</h2><pre><code>&lt;?php
-$a = &#39;11&#39;;
-settype($a, &#39;int&#39;); // 把&#39;11&#39;转化为int型
-settype($a, &#39;float&#39;); // 把&#39;11&#39;转化为float型
-</code></pre>  
+		<ol>
+<li><p>因为Innodb类型的表是按照主键的顺序保存的，所以将导入的数据按照主键的顺序排列，可以有效的提高导入数据的效率。如果Innodb表没有主键，那么系统会默认创建一个内部列作为主键，所以如果可以给表创建一个主键，将可以利用这个优势提高导入数据的效率。</p>
+</li>
+<li><p>在导入数据前执行SET UNIQUE_CHECKS=0，关闭唯一性校验，在导入结束后执行SET UNIQUE_CHECKS=1，恢复唯一性校验，可以提高导入的效率。</p>
+</li>
+<li><p>如果应用使用自动提交的方式，建议在导入前执行SET AUTOCOMMIT=0，关闭自动提交，导入结束后再执行SET AUTOCOMMIT=1，打开自动提交，也可以提高导入的效率。</p>
+</li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/php/">php</a>
+  <span></span> <a href="/tags/mysql/">mysql</a>
   </div>
 
 
@@ -120,7 +115,7 @@ settype($a, &#39;float&#39;); // 把&#39;11&#39;转化为float型
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/10/php类型转换/" data-title="php类型转换 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/11/mysql快速导入大量数据/" data-title="mysql快速导入大量数据 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -130,18 +125,18 @@ settype($a, &#39;float&#39;); // 把&#39;11&#39;转化为float型
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/02/10/mysql存储引擎/" title="mysql存储引擎">
+ <a href="/2017/02/11/mysql转换表的引擎/" title="mysql转换表的引擎">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  mysql存储引擎</span>
+  mysql转换表的引擎</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/02/09/2017继续北漂/"  title="2017继续北漂">
+<a href="/2017/02/10/mysqlx学习笔记（一）/"  title="mysqlx学习笔记（一）">
  <strong>NEXT:</strong><br/> 
- <span>2017继续北漂
+ <span>mysqlx学习笔记（一）
 </span>
 </a>
 </div>
@@ -158,7 +153,7 @@ settype($a, &#39;float&#39;); // 把&#39;11&#39;转化为float型
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在变量前加圆括号，括号内为目标类型"><span class="toc-number">1.</span> <span class="toc-text">在变量前加圆括号，括号内为目标类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用intval-floatval-strval函数转换"><span class="toc-number">2.</span> <span class="toc-text">使用intval,floatval,strval函数转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用settype函数"><span class="toc-number">3.</span> <span class="toc-text">使用settype函数</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">

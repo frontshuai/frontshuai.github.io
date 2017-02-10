@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
 				<h2 class="blog-motto">记录程序学习之路</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -51,7 +51,7 @@
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:hexo.liuyushuai.com">
 					</form>
 					
@@ -63,6 +63,80 @@
     </header>
     <div id="container">
       <div id="main">
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2017/02/11/mysql查用语句及查询/" title="mysql查用语句及查询" itemprop="url">
+  
+    <h1 itemprop="name">mysql查用语句及查询</h1>
+    
+     
+           <p itemprop="description" >selectlikeregexp
+mysqldump</p>
+        
+    
+    <time datetime="2017-02-10T18:16:39.000Z" itemprop="datePublished">2017-02-11</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2017/02/11/mysql转换表的引擎/" title="mysql转换表的引擎" itemprop="url">
+  
+    <h1 itemprop="name">mysql转换表的引擎</h1>
+    
+     
+           <p itemprop="description" >三种方式
+
+alter table
+该方式需要执行很长时间
+mysql&amp;gt; alter table mytable engine=InnoDB;
+
+
+导入导出使用mysqldump导出表，修改导出文件里的create table后面表的名称。创建新的表。
+
+mysqldump</p>
+        
+    
+    <time datetime="2017-02-10T18:04:45.000Z" itemprop="datePublished">2017-02-11</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2017/02/11/mysql快速导入大量数据/" title="mysql快速导入大量数据" itemprop="url">
+  
+    <h1 itemprop="name">mysql快速导入大量数据</h1>
+    
+     
+           <p itemprop="description" >因为Innodb类型的表是按照主键的顺序保存的，所以将导入的数据按照主键的顺序排列，可以有效的提高导入数据的效率。如果Innodb表没有主键，那么系统会默认创建一个内部列作为主键，所以如果可以给表创建一个主键，将可以利用这个优势提高导入数据的效率。
+
+在导入数据前执行SET UN</p>
+        
+    
+    <time datetime="2017-02-10T17:17:24.000Z" itemprop="datePublished">2017-02-11</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2017/02/10/mysqlx学习笔记（一）/" title="mysqlx学习笔记（一）" itemprop="url">
+  
+    <h1 itemprop="name">mysqlx学习笔记（一）</h1>
+    
+     
+           <p itemprop="description" >mysql逻辑架构mysql逻辑架构图一共分为三层
+
+连接处理，授权认证，安全等
+包括查询解析、分析、优化、缓存以及其他内置函数。所有跨存储引擎的功能都在这一层实现：存储过程、触发器、视图等
+包括存储引擎。存储引擎负责MySQL中数据的存储和提取
+
+并发控制当有大量的查询需要同时</p>
+        
+    
+    <time datetime="2017-02-10T15:48:45.000Z" itemprop="datePublished">2017-02-10</time>
+  </a>
+</section>
 
   <section class="post" itemscope itemprop="blogPost">
   
@@ -155,67 +229,24 @@ nginx进程数，建议设置为等于CPU总核心数。worker_processes 8;
   </a>
 </section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2017/02/08/nginx-location路由匹配规则/" title="nginx location路由匹配规则" itemprop="url">
-  
-    <h1 itemprop="name">nginx location路由匹配规则</h1>
-    
-     
-           <p itemprop="description" >模式
-含义
 
-
-
-
-location = /uri
-= 表示精确匹配只有完全相等才会匹配成功
-
-
-location ^~ /uri
-^~ 表示对路由进行前缀匹配
-
-
-location ~ /uri
-~ 表示对路由进行正则匹配
-
-
-location ~* /uri
-~* 表示对路由</p>
-        
-    
-    <time datetime="2017-02-08T10:59:48.000Z" itemprop="datePublished">2017-02-08</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2017/02/08/hello-world/" title="Hello World" itemprop="url">
-  
-    <h1 itemprop="name">Hello World</h1>
-    
-     
-           <p itemprop="description" >Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the </p>
-        
-    
-    <time datetime="2017-02-08T09:32:42.000Z" itemprop="datePublished">2017-02-08</time>
-  </a>
-</section>
-
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			<li><a href="/categories/mysql/" title="mysql">mysql<sup>2</sup></a></li>
 		
 			<li><a href="/categories/nginx/" title="nginx">nginx<sup>3</sup></a></li>
 		
@@ -229,15 +260,15 @@ location ~* /uri
 
   
   <div class="tagcloudlist">
-    <p class="asidetitle">Tag Cloud</p>
+    <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 20px;">nginx</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 10px;">存储引擎</a>
+       <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 13.33px;">存储引擎</a>
     </div>
   </div>
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
       <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
       <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>

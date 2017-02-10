@@ -1,0 +1,441 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>mysqlx学习笔记（一） | 刘宇帅的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="刘宇帅">
+    
+    <meta name="description" content="mysql逻辑架构mysql逻辑架构图一共分为三层
+
+连接处理，授权认证，安全等
+包括查询解析、分析、优化、缓存以及其他内置函数。所有跨存储引擎的功能都在这一层实现：存储过程、触发器、视图等
+包括存储引擎。存储引擎负责MySQL中数据的存储和提取
+
+并发控制当有大量的查询需要同时修改数据时，都会产生">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/author.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/author.png">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/author.png" alt="刘宇帅的博客" title="刘宇帅的博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
+				<h2 class="blog-motto">记录程序学习之路</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:hexo.liuyushuai.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/02/10/mysqlx学习笔记（一）/" title="mysqlx学习笔记（一）" itemprop="url">mysqlx学习笔记（一）</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://hexo.liuyushuai.com" title="刘宇帅">刘宇帅</a>
+    
+      <span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+  </p>
+  <p class="article-time">
+    <time datetime="2017-02-10T15:48:45.000Z" itemprop="datePublished">2017-02-10</time>
+    更新日期:<time datetime="2017-02-10T17:58:14.000Z" itemprop="dateModified">2017-02-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql逻辑架构"><span class="toc-number">1.</span> <span class="toc-text">mysql逻辑架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#并发控制"><span class="toc-number">2.</span> <span class="toc-text">并发控制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事物"><span class="toc-number">3.</span> <span class="toc-text">事物</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#隔离级别"><span class="toc-number">4.</span> <span class="toc-text">隔离级别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL中事物"><span class="toc-number">5.</span> <span class="toc-text">MySQL中事物</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql设置隔离级别"><span class="toc-number">6.</span> <span class="toc-text">mysql设置隔离级别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL的存储引擎"><span class="toc-number">7.</span> <span class="toc-text">MySQL的存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#InnoDB"><span class="toc-number">7.1.</span> <span class="toc-text">InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyISAM"><span class="toc-number">7.2.</span> <span class="toc-text">MyISAM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Archive"><span class="toc-number">7.3.</span> <span class="toc-text">Archive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blackhole"><span class="toc-number">7.4.</span> <span class="toc-text">Blackhole</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSV"><span class="toc-number">7.5.</span> <span class="toc-text">CSV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Federated"><span class="toc-number">7.6.</span> <span class="toc-text">Federated</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Merge"><span class="toc-number">8.</span> <span class="toc-text">Merge</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Memory"><span class="toc-number">9.</span> <span class="toc-text">Memory</span></a></li></ol>
+		</div>
+		
+		<h1 id="mysql逻辑架构"><a href="#mysql逻辑架构" class="headerlink" title="mysql逻辑架构"></a>mysql逻辑架构</h1><p><img src="http://ol3m0nyfn.bkt.clouddn.com/2012031510324452.png" alt="mysql逻辑架构图"><br>mysql逻辑架构图一共分为三层</p>
+<ol>
+<li>连接处理，授权认证，安全等</li>
+<li>包括查询解析、分析、优化、缓存以及其他内置函数。所有跨存储引擎的功能都在这一层实现：存储过程、触发器、视图等</li>
+<li>包括存储引擎。存储引擎负责MySQL中数据的存储和提取</li>
+</ol>
+<h1 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h1><p>当有大量的查询需要同时修改数据时，都会产生并发控制的问题。</p>
+<p>锁的类型分为读锁和写锁</p>
+<p>锁的粒度分为表锁和行级锁</p>
+<p>锁会带来的问题：在进行标的修改时，例如使用alter table修改大表的时候会导致长时间锁表</p>
+<h1 id="事物"><a href="#事物" class="headerlink" title="事物"></a>事物</h1><p>事物就是一组原子性的查询，或则说是一个独立的工作单元。<br>事物ACID特性</p>
+<ol>
+<li>原子性（atomicity）- 事物被视为最小的不可分割的工作单元。</li>
+<li>一致性（consistency）- 数据库总是重一个状态变到另一个状态，就事物内的所有语句要不全执行，要不都不执行。</li>
+<li>隔离性（isolation) - 事物在执行完毕之前，对其他事物是不可见的。</li>
+<li>持久性（durability）- 一旦事物提交，则其修改就会永久保存到数据库。</li>
+</ol>
+<h1 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h1><ol>
+<li>READ UNCOMMITED(未提交读) - 该级别中的事物修改，即使没有提交，对其他事物也是可见的。事物可以读取为提交的数据也叫脏读。<br>会导致很多问题，从性能上说不会比其他级别好很多，但却缺其他级别的很多好处。很少使用。</li>
+<li>READ COMMIT(提交读) - 大部分数据库系统都是该级别。该级别下，一个事物在完全执行完之前，对其他事物是不可见的。</li>
+<li>REPEATABLE READ(可重复读) - 该级别保证同一个事物多次读取同样记录的结果是一样的。在两次读的中间会有其他事物对数据进行修改导致不一致。<br>InnoDB和XtraDB存储引擎通过多版本并发控制解决该问题（幻读）。该级别为数据库默认级别。</li>
+<li>SERIALIZABLE(可串行化) 最高级别隔离，强制事物串行执行，避免可重复读中会产生的幻读问题。实际上就是该级别下都强制加锁，但是会导致大量的超时和锁争用的问题。</li>
+</ol>
+<h1 id="MySQL中事物"><a href="#MySQL中事物" class="headerlink" title="MySQL中事物"></a>MySQL中事物</h1><p>mysql提供了两种事物型存储引擎：InnoDB和NDBCluster。<br>MySQL默认采用自动提交的模式。如果不是显示地开始一个事物，则每个查询都别当作一个事物执行提交操作。在当前连接中，可以通过<br>设置AUTOCOMMIT变量来启用或禁用自动提交模式。</p>
+<pre><code>mysql&gt; show variables like &#39;autocommit&#39;;
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">Variable_name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">autocommit</td>
+<td>on</td>
+</tr>
+</tbody>
+</table>
+<p>关闭自动提交</p>
+<pre><code>mysql&gt;set autommit=0;
+</code></pre><blockquote>
+<p>commit的巧用：如上所说mysql都是默认事物并是自动提交的。所以在进行大数据插入时可设置autocommit=0,在插入完<br>所有数据后再设置autommit=1。这样做能提升插入速度。</p>
+</blockquote>
+<h1 id="mysql设置隔离级别"><a href="#mysql设置隔离级别" class="headerlink" title="mysql设置隔离级别"></a>mysql设置隔离级别</h1><p>设置mysql整体级别</p>
+<pre><code>mysql&gt; set transaction isolation level read committed;
+</code></pre><p>设置mysql当前隔离级别</p>
+<pre><code>myslq&gt; set session transaction isolation level read committed;
+</code></pre><h1 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h1><p>存储引擎是针对表级别的，同一个库里可以有不同的引擎表。<br>mysql5.1之后的引擎默认是InnoDB。<br>例如查看user表是什么引擎：<br>第一种</p>
+<pre><code>mysql&gt; show table status like &#39;user&#39;;
+</code></pre><p>第二种</p>
+<pre><code>mysql&gt;show create table user;
+</code></pre><h2 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h2><p>InnoDB表是基于聚簇索引建立的。聚簇索引对主键查询性能很高，但是二级索引会包含主键列，所以如果主键列如果很大，其他所有<br>索引都会很大。InnoDB表采用MVCC来支持高并发，并且实现了四个标准的隔离级别。其默认级别是REPEATABLE READ。</p>
+<h2 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h2><p>MySQL5.1之前的默认存储引擎。MyISAM提供大量的特性，包括全文索引、压缩、空间函数。但是MyISAM不支持事物和行级锁。</p>
+<h2 id="Archive"><a href="#Archive" class="headerlink" title="Archive"></a>Archive</h2><p>只支持insert和select。select需要全表扫描（适合日志和数据采集类应用）。或则在需要快速insert的场景下需要</p>
+<h2 id="Blackhole"><a href="#Blackhole" class="headerlink" title="Blackhole"></a>Blackhole</h2><p>该引擎没有实现任何的存储机制，他会丢弃所有的插入数据。只是做日志记录，可以用于复制数据到备份。</p>
+<h2 id="CSV"><a href="#CSV" class="headerlink" title="CSV"></a>CSV</h2><h2 id="Federated"><a href="#Federated" class="headerlink" title="Federated"></a>Federated</h2><h1 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h1><p>Merge引擎是MyISAM的一个变种。</p>
+<h1 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h1><p>数据不会被修改，重启以后丢失也没用，可以使用Memory表。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mysql/">mysql</a><a href="/tags/存储引擎/">存储引擎</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/mysql/">mysql</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://hexo.liuyushuai.com/2017/02/10/mysqlx学习笔记（一）/" data-title="mysqlx学习笔记（一） | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/02/11/mysql快速导入大量数据/" title="mysql快速导入大量数据">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  mysql快速导入大量数据</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/02/10/mysql存储引擎/"  title="mysql存储引擎">
+ <strong>NEXT:</strong><br/> 
+ <span>mysql存储引擎
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql逻辑架构"><span class="toc-number">1.</span> <span class="toc-text">mysql逻辑架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#并发控制"><span class="toc-number">2.</span> <span class="toc-text">并发控制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事物"><span class="toc-number">3.</span> <span class="toc-text">事物</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#隔离级别"><span class="toc-number">4.</span> <span class="toc-text">隔离级别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL中事物"><span class="toc-number">5.</span> <span class="toc-text">MySQL中事物</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql设置隔离级别"><span class="toc-number">6.</span> <span class="toc-text">mysql设置隔离级别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL的存储引擎"><span class="toc-number">7.</span> <span class="toc-text">MySQL的存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#InnoDB"><span class="toc-number">7.1.</span> <span class="toc-text">InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyISAM"><span class="toc-number">7.2.</span> <span class="toc-text">MyISAM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Archive"><span class="toc-number">7.3.</span> <span class="toc-text">Archive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blackhole"><span class="toc-number">7.4.</span> <span class="toc-text">Blackhole</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSV"><span class="toc-number">7.5.</span> <span class="toc-text">CSV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Federated"><span class="toc-number">7.6.</span> <span class="toc-text">Federated</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Merge"><span class="toc-number">8.</span> <span class="toc-text">Merge</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Memory"><span class="toc-number">9.</span> <span class="toc-text">Memory</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/mysql/" title="mysql">mysql<sup>2</sup></a></li>
+		
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>3</sup></a></li>
+		
+			<li><a href="/categories/php/" title="php">php<sup>1</sup></a></li>
+		
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 13.33px;">存储引擎</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2017 
+		
+		<a href="http://hexo.liuyushuai.com" target="_blank" title="刘宇帅">刘宇帅</a>
+		
+			本站点总访问量：<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"liuyushuai"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.9.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+
+  </body>
+</html>
