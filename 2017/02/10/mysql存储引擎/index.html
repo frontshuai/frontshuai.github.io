@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>nginx日志分割 | 刘宇帅的博客</title>
+    <title>mysql存储引擎 | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。按天分割日志$time_iso8601格式如下：20">
+    <meta name="description" content="MySQL5.5以后默认使用InnoDB存储引擎，其中InnoDB和BDB提供事务安全表，其它存储引擎都是非事务安全表。
+#InnoDBInnoDB存储引擎提供了具有提交、回滚和崩溃恢复能力的事务安全。但是对比MyISAM的存储引擎，InnoDB写的处理效率差一些并且会占用更多的磁盘空间以保留数据和">
     
     
     
@@ -67,7 +68,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/nginx日志分割/" title="nginx日志分割" itemprop="url">nginx日志分割</a>
+      <a href="/2017/02/10/mysql存储引擎/" title="mysql存储引擎" itemprop="url">mysql存储引擎</a>
   </h1>
   <p class="article-author">By
     
@@ -78,8 +79,8 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:10:13.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:51:17.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-10T08:46:10.000Z" itemprop="datePublished">2017-02-10</time>
+    Updated:<time datetime="2017-02-10T08:48:19.000Z" itemprop="dateModified">2017-02-10</time>
     
   </p>
 </header>
@@ -91,45 +92,29 @@
 		
 		</div>
 		
-		<p>配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。<br>按天分割日志<br>$time_iso8601格式如下：2015-08-07T18:12:02+02:00<br>按天分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})&quot;) {
-    set $year $1;
-    set $month $2;
-    set $day $3;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-access.log;
-</code></pre><p>也可以使用Perl语法来捕获，如下：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})&quot;) {}
-access_log /data/logs/nginx/www.ttlsa.com-$year-$month-$day-access.log;
-</code></pre><p>按小时分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})T(\d{2})&quot;)
-{
-    set $year $1;
-    set $month $2;
-    set $day $3;
-    set $hour $4;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
-</code></pre>  
+		<p>MySQL5.5以后默认使用InnoDB存储引擎，其中InnoDB和BDB提供事务安全表，其它存储引擎都是非事务安全表。</p>
+<p>#InnoDB<br>InnoDB存储引擎提供了具有提交、回滚和崩溃恢复能力的事务安全。但是对比MyISAM的存储引擎，InnoDB写的处理效率差一些并且会占用更多的磁盘空间以保留数据和索引。</p>
+<p>#MyISAM<br>它不支持事务，也不支持外键，尤其是访问速度快，对事务完整性没有要求或者以SELECT、INSERT为主的应用基本都可以使用这个引擎来创建表。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/nginx/">nginx</a>
+  <span></span> <a href="/tags/mysql/">mysql</a><a href="/tags/存储引擎/">存储引擎</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/nginx/">nginx</a>
+  <a class="article-category-link" href="/categories/mysql/">mysql</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/nginx日志分割/" data-title="nginx日志分割 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/10/mysql存储引擎/" data-title="mysql存储引擎 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -138,19 +123,11 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/09/php链接mysql数据库的方式/" title="php链接mysql数据库的方式">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  php链接mysql数据库的方式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/02/08/nginx-conf配置详解/"  title="nginx conf配置详解">
+<a href="/2017/02/10/php类型转换/"  title="php类型转换">
  <strong>NEXT:</strong><br/> 
- <span>nginx conf配置详解
+ <span>php类型转换
 </span>
 </a>
 </div>

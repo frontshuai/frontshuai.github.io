@@ -1,15 +1,16 @@
 
- <!DOCTYPE HTML>
+  
+    <!DOCTYPE HTML>
 <html >
 <head>
   <meta charset="UTF-8">
   
-    <title>nginx日志分割 | 刘宇帅的博客</title>
+    <title>about | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。按天分割日志$time_iso8601格式如下：20">
+    <meta name="description" content="刘宇帅的个人博客，记录程序学习之路">
     
     
     
@@ -24,9 +25,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-  <body>
-    <header>
-      <div>
+      <body>
+        <header>
+          <div>
 		
 			<div id="imglogo">
 				<a href="/"><img src="/img/author.png" alt="刘宇帅的博客" title="刘宇帅的博客"/></a>
@@ -60,14 +61,14 @@
 			</nav>			
 </div>
 
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
+        </header>
+        <div id="container">
+          <div id="main" class="page" itemscope itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/nginx日志分割/" title="nginx日志分割" itemprop="url">nginx日志分割</a>
+      <a href="/about/index.html" title="about" itemprop="url">about</a>
   </h1>
   <p class="article-author">By
     
@@ -78,141 +79,43 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:10:13.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:51:17.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-10T09:19:15.000Z" itemprop="datePublished">2017-02-10</time>
+    Updated:<time datetime="2017-02-10T10:15:25.000Z" itemprop="dateModified">2017-02-10</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
-		
-		</div>
-		
-		<p>配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。<br>按天分割日志<br>$time_iso8601格式如下：2015-08-07T18:12:02+02:00<br>按天分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})&quot;) {
-    set $year $1;
-    set $month $2;
-    set $day $3;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-access.log;
-</code></pre><p>也可以使用Perl语法来捕获，如下：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})&quot;) {}
-access_log /data/logs/nginx/www.ttlsa.com-$year-$month-$day-access.log;
-</code></pre><p>按小时分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})T(\d{2})&quot;)
-{
-    set $year $1;
-    set $month $2;
-    set $day $3;
-    set $hour $4;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
-</code></pre>  
+		<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>姓名：刘帅<br>身份：非著名程序员<br>主要技术：php,javascript,java,solr<br>个人博客：<a href="http://blog.liuyushuai.com" target="_blank" rel="external">刘宇帅的博客</a></p>
+<h1 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h1><p>2015.03-2016.4<br>郑州神恩信息技术有限公司<br>工作内容： 前端页面开发 php开发<br>2016.05-至今<br>人人车<br>工作内容: php开发 solr运维及插件开发</p>
+<h1 id="个人前端作品展示"><a href="#个人前端作品展示" class="headerlink" title="个人前端作品展示"></a>个人前端作品展示</h1><h2 id="angularJs仿效微店店铺编辑系统"><a href="#angularJs仿效微店店铺编辑系统" class="headerlink" title="angularJs仿效微店店铺编辑系统"></a><a href="http://static.liuyushuai.com/phoneshopedit/app/index.html" target="_blank" rel="external">angularJs仿效微店店铺编辑系统</a></h2><p>技术：angularjs jquery</p>
+<h2 id="家具一站式平台"><a href="#家具一站式平台" class="headerlink" title="家具一站式平台"></a><a href="http://static.liuyushuai.com/fenghuang/www/zhuchao/index.html" target="_blank" rel="external">家具一站式平台</a></h2><p>技术：scss jquery requirejs  gulp</p>
+<h2 id="bootstrap实现作品"><a href="#bootstrap实现作品" class="headerlink" title="bootstrap实现作品"></a><a href="http://topjs.org" target="_blank" rel="external">bootstrap实现作品</a></h2><p>该网站是跟一个学长做的一个开源的产品的介绍网站。该网站的页面实现使用bootstrap，后台套用的hexo(跟该博客使用的同一个系统)。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/nginx/">nginx</a>
-  </div>
-
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/nginx/">nginx</a>
-</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/nginx日志分割/" data-title="nginx日志分割 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/about/index.html" data-title="about | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
 </footer>   	       
 	</article>
 	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2017/02/09/php链接mysql数据库的方式/" title="php链接mysql数据库的方式">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  php链接mysql数据库的方式</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2017/02/08/nginx-conf配置详解/"  title="nginx conf配置详解">
- <strong>NEXT:</strong><br/> 
- <span>nginx conf配置详解
-</span>
-</a>
-</div>
-
-</nav>
-
 	
 <section class="comment">
 	<div class="ds-thread"></div>
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
-  
-  </div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">Categories</p>
-		<ul>
-		
-			<li><a href="/categories/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-		
-			<li><a href="/categories/nginx/" title="nginx">nginx<sup>3</sup></a></li>
-		
-			<li><a href="/categories/php/" title="php">php<sup>1</sup></a></li>
-		
-			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  
-  <div class="tagcloudlist">
-    <p class="asidetitle">Tag Cloud</p>
-    <div class="tagcloudlist clearfix">
-       <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 20px;">nginx</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 10px;">存储引擎</a>
-    </div>
-  </div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">Links</p>
-    <ul>
-      <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
-      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
-    </ul>
-</div>
-
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
+        </div>
+        <footer><div id="footer" >
 	
 	<div class="line">
 		<span></span>
@@ -237,7 +140,7 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 		</p>
 </div>
 </footer>
-    <script src="/js/jquery-2.1.0.min.js"></script>
+        <script src="/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
   $('.navbar').click(function(){
@@ -264,8 +167,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -282,38 +183,6 @@ $(document).ready(function(){
   $(window).scroll(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
 });
 </script>
 
@@ -392,5 +261,6 @@ $(document).ready(function(){
     hljs.initHighlightingOnLoad();
 </script>
 
-  </body>
-</html>
+      </body>
+     </html>
+     

@@ -9,10 +9,8 @@
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="#mysql连接数据库共三种方式
-##1.mysql扩展
-
-Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使用 MySQLi 或 PDO_MySQL 扩展来替换之。参见 MySQL：选择 API 指南以及相关 FAQ 以获取更多信息。用以替代本函数的有：mysqli_co">
+    <meta name="description" content="mysql连接数据库共三种方式1.mysql扩展
+Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使用 MySQLi 或 PDO_MySQL 扩展来替换之。参见 MySQL：选择 API 指南以及相关 FAQ 以获取更多信息。用以替代本函数的有：mysqli_connect">
     
     
     
@@ -37,7 +35,7 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 			
 			<div id="textlogo">
 				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
-				<h2 class="blog-motto"></h2>
+				<h2 class="blog-motto">记录程序学习之路</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
@@ -47,6 +45,8 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 						<li><a href="/">Home</a></li>
 					
 						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
 					
 					<li>
 					
@@ -73,10 +73,14 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
   <p class="article-author">By
     
       <a href="http://hexo.liuyushuai.com" title="刘宇帅">刘宇帅</a>
-    </p>
+    
+      <span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+  </p>
   <p class="article-time">
     <time datetime="2017-02-09T08:27:36.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:28:09.000Z" itemprop="dateModified">2017-02-09</time>
+    Updated:<time datetime="2017-02-10T05:45:54.000Z" itemprop="dateModified">2017-02-10</time>
     
   </p>
 </header>
@@ -85,16 +89,14 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql连接数据库共三种方式"><span class="toc-number">1.</span> <span class="toc-text">mysql连接数据库共三种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-mysql扩展"><span class="toc-number">1.1.</span> <span class="toc-text">1.mysql扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-mysqli扩展-有时候称mysql增强扩展"><span class="toc-number">1.2.</span> <span class="toc-text">2.mysqli扩展(有时候称mysql增强扩展)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PDO"><span class="toc-number">1.3.</span> <span class="toc-text">PDO</span></a></li></ol></li></ol>
 		</div>
 		
-		<p>#mysql连接数据库共三种方式</p>
-<p>##1.mysql扩展</p>
-<blockquote>
+		<h1 id="mysql连接数据库共三种方式"><a href="#mysql连接数据库共三种方式" class="headerlink" title="mysql连接数据库共三种方式"></a>mysql连接数据库共三种方式</h1><h2 id="1-mysql扩展"><a href="#1-mysql扩展" class="headerlink" title="1.mysql扩展"></a>1.mysql扩展</h2><blockquote>
 <p><strong>Warning</strong><br>本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使用 MySQLi 或 PDO_MySQL 扩展来替换之。参见 MySQL：选择 API 指南以及相关 FAQ 以获取更多信息。用以替代本函数的有：<br>mysqli_connect()<br>PDO::__construct()</p>
 </blockquote>
 <p>在新写的代码中不建议使用该方式连接数据库。<br>详细介绍：<a href="http://php.net/manual/zh/book.mysql.php" target="_blank" rel="external">http://php.net/manual/zh/book.mysql.php</a></p>
-<p>##2.mysqli扩展(有时候称mysql增强扩展)<br>可以连接mysql4.1及以上版本，mysqli在php5及以上版本中支持。<br>相对于mysql扩展，mysqli增加了</p>
+<h2 id="2-mysqli扩展-有时候称mysql增强扩展"><a href="#2-mysqli扩展-有时候称mysql增强扩展" class="headerlink" title="2.mysqli扩展(有时候称mysql增强扩展)"></a>2.mysqli扩展(有时候称mysql增强扩展)</h2><p>可以连接mysql4.1及以上版本，mysqli在php5及以上版本中支持。<br>相对于mysql扩展，mysqli增加了</p>
 <ul>
 <li>面向对象接口</li>
 <li>prepared语句支持（译注：关于prepare请参阅mysql相关文档）</li>
@@ -104,14 +106,14 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 <li>嵌入式服务支</li>
 </ul>
 <p>详细介绍：<a href="http://php.net/manual/zh/book.mysqli.php" target="_blank" rel="external">http://php.net/manual/zh/book.mysqli.php</a></p>
-<p>##PDO<br>PHP数据对象，是PHP应用中的一个数据库抽象层规范。PDO提供了一个统一的API接口可以使得你的PHP应用不去关心具体要 连接的数据库服务器系统类型。也就是说，如果你使用PDO的API，可以在任何需要的时候无缝切换数据库服务器，比如从Firebird 到MySQL，仅仅需要修改很少的PHP代码。<br>详细介绍：<a href="http://php.net/manual/zh/book.pdo.php" target="_blank" rel="external">http://php.net/manual/zh/book.pdo.php</a></p>
+<h2 id="PDO"><a href="#PDO" class="headerlink" title="PDO"></a>PDO</h2><p>PHP数据对象，是PHP应用中的一个数据库抽象层规范。PDO提供了一个统一的API接口可以使得你的PHP应用不去关心具体要 连接的数据库服务器系统类型。也就是说，如果你使用PDO的API，可以在任何需要的时候无缝切换数据库服务器，比如从Firebird 到MySQL，仅仅需要修改很少的PHP代码。<br>详细介绍：<a href="http://php.net/manual/zh/book.pdo.php" target="_blank" rel="external">http://php.net/manual/zh/book.pdo.php</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/mysql/">mysql</a><a href="/tags/php/">php</a>
+  <span></span> <a href="/tags/php/">php</a>
   </div>
 
 
@@ -133,6 +135,14 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/02/09/2017继续北漂/" title="2017继续北漂">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  2017继续北漂</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/02/09/nginx日志分割/"  title="nginx日志分割">
@@ -154,7 +164,7 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql连接数据库共三种方式"><span class="toc-number">1.</span> <span class="toc-text">mysql连接数据库共三种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-mysql扩展"><span class="toc-number">1.1.</span> <span class="toc-text">1.mysql扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-mysqli扩展-有时候称mysql增强扩展"><span class="toc-number">1.2.</span> <span class="toc-text">2.mysqli扩展(有时候称mysql增强扩展)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PDO"><span class="toc-number">1.3.</span> <span class="toc-text">PDO</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
@@ -166,36 +176,35 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 	<p class="asidetitle">Categories</p>
 		<ul>
 		
+			<li><a href="/categories/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+		
 			<li><a href="/categories/nginx/" title="nginx">nginx<sup>3</sup></a></li>
 		
 			<li><a href="/categories/php/" title="php">php<sup>1</sup></a></li>
+		
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
 		
 		</ul>
 </div>
 
 
   
-<div class="tagslist">
-	<p class="asidetitle">Tags</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/location/" title="location">location<sup>2</sup></a></li>
-		
-			<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-		
-			<li><a href="/tags/nginx/" title="nginx">nginx<sup>3</sup></a></li>
-		
-			<li><a href="/tags/php/" title="php">php<sup>1</sup></a></li>
-		
-			<li><a href="/tags/日志分割/" title="日志分割">日志分割<sup>1</sup></a></li>
-		
-		</ul>
-</div>
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 20px;">nginx</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 10px;">存储引擎</a>
+    </div>
+  </div>
 
 
-  <div class="rsspart">
-	<a href="null" target="_blank" title="rss">RSS</a>
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+      <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
 </div>
+
 
 </aside>
 </div>
@@ -219,6 +228,9 @@ Warning本扩展自 PHP 5.5.0 起已废弃，并在将来会被移除。应使�
 		
 		<a href="http://hexo.liuyushuai.com" target="_blank" title="刘宇帅">刘宇帅</a>
 		
+			本站点总访问量：<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
 		</p>
 </div>
 </footer>
@@ -371,7 +383,8 @@ $(document).ready(function(){
 
 <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.9.0/styles/rainbow.min.css">
 <script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
-
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
 <script type="text/javascript">
     hljs.initHighlightingOnLoad();
 </script>

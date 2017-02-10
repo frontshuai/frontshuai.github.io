@@ -34,7 +34,7 @@
 			
 			<div id="textlogo">
 				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
-				<h2 class="blog-motto"></h2>
+				<h2 class="blog-motto">记录程序学习之路</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
@@ -44,6 +44,8 @@
 						<li><a href="/">Home</a></li>
 					
 						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
 					
 					<li>
 					
@@ -70,7 +72,11 @@
   <p class="article-author">By
     
       <a href="http://hexo.liuyushuai.com" title="刘宇帅">刘宇帅</a>
-    </p>
+    
+      <span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+  </p>
   <p class="article-time">
     <time datetime="2017-02-08T09:32:42.000Z" itemprop="datePublished">2017-02-08</time>
     Updated:<time datetime="2017-02-08T09:32:42.000Z" itemprop="dateModified">2017-02-08</time>
@@ -149,36 +155,35 @@
 	<p class="asidetitle">Categories</p>
 		<ul>
 		
+			<li><a href="/categories/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+		
 			<li><a href="/categories/nginx/" title="nginx">nginx<sup>3</sup></a></li>
 		
 			<li><a href="/categories/php/" title="php">php<sup>1</sup></a></li>
+		
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
 		
 		</ul>
 </div>
 
 
   
-<div class="tagslist">
-	<p class="asidetitle">Tags</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/location/" title="location">location<sup>2</sup></a></li>
-		
-			<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-		
-			<li><a href="/tags/nginx/" title="nginx">nginx<sup>3</sup></a></li>
-		
-			<li><a href="/tags/php/" title="php">php<sup>1</sup></a></li>
-		
-			<li><a href="/tags/日志分割/" title="日志分割">日志分割<sup>1</sup></a></li>
-		
-		</ul>
-</div>
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 20px;">nginx</a> <a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 10px;">存储引擎</a>
+    </div>
+  </div>
 
 
-  <div class="rsspart">
-	<a href="null" target="_blank" title="rss">RSS</a>
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+      <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
 </div>
+
 
 </aside>
 </div>
@@ -202,6 +207,9 @@
 		
 		<a href="http://hexo.liuyushuai.com" target="_blank" title="刘宇帅">刘宇帅</a>
 		
+			本站点总访问量：<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
 		</p>
 </div>
 </footer>
@@ -354,7 +362,8 @@ $(document).ready(function(){
 
 <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.9.0/styles/rainbow.min.css">
 <script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
-
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
 <script type="text/javascript">
     hljs.initHighlightingOnLoad();
 </script>

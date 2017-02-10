@@ -4,12 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>nginx日志分割 | 刘宇帅的博客</title>
+    <title>php类型转换 | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。按天分割日志$time_iso8601格式如下：20">
+    <meta name="description" content="php类型转换一共三种方式
+在变量前加圆括号，括号内为目标类型&amp;lt;?php
+$a = (int)&amp;#39;11&amp;#39;;  // 把&amp;#39;11&amp;#39;转化为int型
+$b = (float)&amp;#39;11&amp;#39;; // 把&amp;#39;11&amp;#39;转化为float型
+使用intval,">
     
     
     
@@ -67,7 +71,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/nginx日志分割/" title="nginx日志分割" itemprop="url">nginx日志分割</a>
+      <a href="/2017/02/10/php类型转换/" title="php类型转换" itemprop="url">php类型转换</a>
   </h1>
   <p class="article-author">By
     
@@ -78,8 +82,8 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:10:13.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:51:17.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-10T06:51:31.000Z" itemprop="datePublished">2017-02-10</time>
+    Updated:<time datetime="2017-02-10T06:57:46.000Z" itemprop="dateModified">2017-02-10</time>
     
   </p>
 </header>
@@ -88,48 +92,35 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在变量前加圆括号，括号内为目标类型"><span class="toc-number">1.</span> <span class="toc-text">在变量前加圆括号，括号内为目标类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用intval-floatval-strval函数转换"><span class="toc-number">2.</span> <span class="toc-text">使用intval,floatval,strval函数转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用settype函数"><span class="toc-number">3.</span> <span class="toc-text">使用settype函数</span></a></li></ol>
 		</div>
 		
-		<p>配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。<br>按天分割日志<br>$time_iso8601格式如下：2015-08-07T18:12:02+02:00<br>按天分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})&quot;) {
-    set $year $1;
-    set $month $2;
-    set $day $3;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-access.log;
-</code></pre><p>也可以使用Perl语法来捕获，如下：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})&quot;) {}
-access_log /data/logs/nginx/www.ttlsa.com-$year-$month-$day-access.log;
-</code></pre><p>按小时分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})T(\d{2})&quot;)
-{
-    set $year $1;
-    set $month $2;
-    set $day $3;
-    set $hour $4;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
+		<p>php类型转换一共三种方式</p>
+<h2 id="在变量前加圆括号，括号内为目标类型"><a href="#在变量前加圆括号，括号内为目标类型" class="headerlink" title="在变量前加圆括号，括号内为目标类型"></a>在变量前加圆括号，括号内为目标类型</h2><pre><code>&lt;?php
+$a = (int)&#39;11&#39;;  // 把&#39;11&#39;转化为int型
+$b = (float)&#39;11&#39;; // 把&#39;11&#39;转化为float型
+</code></pre><h2 id="使用intval-floatval-strval函数转换"><a href="#使用intval-floatval-strval函数转换" class="headerlink" title="使用intval,floatval,strval函数转换"></a>使用intval,floatval,strval函数转换</h2><pre><code>&lt;?php
+$a = intval(&#39;11&#39;); // 把&#39;11&#39;转化为int型
+$b = floatval(&#39;11&#39;); // 把&#39;11&#39;转化为float型
+</code></pre><h2 id="使用settype函数"><a href="#使用settype函数" class="headerlink" title="使用settype函数"></a>使用settype函数</h2><pre><code>&lt;?php
+$a = &#39;11&#39;;
+settype($a, &#39;int&#39;); // 把&#39;11&#39;转化为int型
+settype($a, &#39;float&#39;); // 把&#39;11&#39;转化为float型
 </code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/nginx/">nginx</a>
+  <span></span> <a href="/tags/php/">php</a>
   </div>
 
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/nginx/">nginx</a>
-</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/nginx日志分割/" data-title="nginx日志分割 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/10/php类型转换/" data-title="php类型转换 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -139,18 +130,18 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/02/09/php链接mysql数据库的方式/" title="php链接mysql数据库的方式">
+ <a href="/2017/02/10/mysql存储引擎/" title="mysql存储引擎">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  php链接mysql数据库的方式</span>
+  mysql存储引擎</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/02/08/nginx-conf配置详解/"  title="nginx conf配置详解">
+<a href="/2017/02/09/2017继续北漂/"  title="2017继续北漂">
  <strong>NEXT:</strong><br/> 
- <span>nginx conf配置详解
+ <span>2017继续北漂
 </span>
 </a>
 </div>
@@ -167,7 +158,7 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在变量前加圆括号，括号内为目标类型"><span class="toc-number">1.</span> <span class="toc-text">在变量前加圆括号，括号内为目标类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用intval-floatval-strval函数转换"><span class="toc-number">2.</span> <span class="toc-text">使用intval,floatval,strval函数转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用settype函数"><span class="toc-number">3.</span> <span class="toc-text">使用settype函数</span></a></li></ol>
   </div>
 
 <div id="asidepart">
