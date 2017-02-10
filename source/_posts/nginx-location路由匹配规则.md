@@ -3,7 +3,6 @@ title: nginx location路由匹配规则
 date: 2017-02-08 18:59:48
 tags:
   - nginx
-  - location
 categories: nginx
 ---
 | 模式     | 含义 |

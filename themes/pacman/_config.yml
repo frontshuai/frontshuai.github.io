@@ -2,6 +2,7 @@
 menu:
   Home: /
   Archives: /archives
+  About: /about
 ## you can create `tags` and `categories` folders in `../source`.
 ## And create a `index.md` file in each of them.
 ## set `front-matter`as
@@ -12,8 +13,9 @@ menu:
 #### Widgets
 widgets: 
 - category
-- tag
-- rss
+- tagcloud
+- links
+
 ## provide six widgets:category,tag,rss,archive,tagcloud,links.
 ## modify links in `/layout/_widget/links.ejs`.
 
