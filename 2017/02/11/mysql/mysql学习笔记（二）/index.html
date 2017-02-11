@@ -82,7 +82,7 @@
   </p>
   <p class="article-time">
     <time datetime="2017-02-11T15:55:11.000Z" itemprop="datePublished">2017-02-11</time>
-    Updated:<time datetime="2017-02-11T16:52:06.000Z" itemprop="dateModified">2017-02-12</time>
+    Updated:<time datetime="2017-02-11T17:02:22.000Z" itemprop="dateModified">2017-02-12</time>
     
   </p>
 </header>
@@ -91,7 +91,7 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li></ol>
 		</div>
 		
 		<h2 id="选择优化的数据类型"><a href="#选择优化的数据类型" class="headerlink" title="选择优化的数据类型"></a>选择优化的数据类型</h2><p>MySQL支持的数据类型非常多，选择正确的数据类型对于获得高性能至关重要。<br>下面有几个数据类型选择的原则</p>
@@ -122,7 +122,8 @@
     -&gt; e enum(&#39;fish&#39;, &#39;apple&#39;, &#39;dog&#39;) not null
     -&gt;);
 </code></pre><p>每行存储的实际上是整数，排序的话也是按整数排序。</p>
-  
+<h2 id="日期和时间"><a href="#日期和时间" class="headerlink" title="日期和时间"></a>日期和时间</h2><p>datetime：这个类型保存的范围是1001-9999，精度为秒。<br>timestamp：保存1970-2038之间的时间值。timestamp的值受时区的影响。<br>timestamp不赋值时，系统会赋值为当前值。一般使用timestamp，比datetime效率高。</p>
+<h2 id="位数据类型"><a href="#位数据类型" class="headerlink" title="位数据类型"></a>位数据类型</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -171,7 +172,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li></ol>
   </div>
 
 <div id="asidepart">
