@@ -4,12 +4,21 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>nginx日志分割 | 刘宇帅的博客</title>
+    <title>mysql转换表的引擎 | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。按天分割日志$time_iso8601格式如下：20">
+    <meta name="description" content="三种方式
+
+alter table
+该方式需要执行很长时间
+mysql&amp;gt; alter table mytable engine=InnoDB;
+
+
+导入导出使用mysqldump导出表，修改导出文件里的create table后面表的名称。创建新的表。
+
+mysqldump导出的表里会包含dr">
     
     
     
@@ -67,7 +76,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/nginx日志分割/" title="nginx日志分割" itemprop="url">nginx日志分割</a>
+      <a href="/2017/02/11/mysql/mysql转换表的引擎/" title="mysql转换表的引擎" itemprop="url">mysql转换表的引擎</a>
   </h1>
   <p class="article-author">By
     
@@ -78,8 +87,8 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:10:13.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:51:17.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-10T18:04:45.000Z" itemprop="datePublished">2017-02-11</time>
+    Updated:<time datetime="2017-02-10T18:13:44.000Z" itemprop="dateModified">2017-02-11</time>
     
   </p>
 </header>
@@ -91,45 +100,39 @@
 		
 		</div>
 		
-		<p>配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。<br>按天分割日志<br>$time_iso8601格式如下：2015-08-07T18:12:02+02:00<br>按天分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})&quot;) {
-    set $year $1;
-    set $month $2;
-    set $day $3;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-access.log;
-</code></pre><p>也可以使用Perl语法来捕获，如下：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})&quot;) {}
-access_log /data/logs/nginx/www.ttlsa.com-$year-$month-$day-access.log;
-</code></pre><p>按小时分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})T(\d{2})&quot;)
-{
-    set $year $1;
-    set $month $2;
-    set $day $3;
-    set $hour $4;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
+		<p>三种方式</p>
+<ol>
+<li>alter table<blockquote>
+<p>该方式需要执行很长时间</p>
+<pre><code>mysql&gt; alter table mytable engine=InnoDB;
+</code></pre></blockquote>
+</li>
+<li><p>导入导出<br>使用mysqldump导出表，修改导出文件里的create table后面表的名称。<br>创建新的表。</p>
+<blockquote>
+<p>mysqldump导出的表里会包含drop table，所以要注意！删除该句。防止数据丢失</p>
+</blockquote>
+</li>
+<li><p>创建和查询</p>
+</li>
+</ol>
+<pre><code>mysql&gt; create table new_table_name like table_name;
+mysql&gt; alter table new_table_name engine=InnoDB;
+mysql&gt; insert into new_table_name select * from table_name;
 </code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/nginx/">nginx</a>
+  <span></span> <a href="/tags/mysql/">mysql</a>
   </div>
 
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/nginx/">nginx</a>
-</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/nginx日志分割/" data-title="nginx日志分割 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/11/mysql/mysql转换表的引擎/" data-title="mysql转换表的引擎 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -139,18 +142,18 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/02/09/php链接mysql数据库的方式/" title="php链接mysql数据库的方式">
+ <a href="/2017/02/11/mysql/mysql常用语句及查询/" title="mysql常用语句及查询">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  php链接mysql数据库的方式</span>
+  mysql常用语句及查询</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/02/08/nginx-conf配置详解/"  title="nginx conf配置详解">
+<a href="/2017/02/11/mysql/mysql快速导入大量数据/"  title="mysql快速导入大量数据">
  <strong>NEXT:</strong><br/> 
- <span>nginx conf配置详解
+ <span>mysql快速导入大量数据
 </span>
 </a>
 </div>

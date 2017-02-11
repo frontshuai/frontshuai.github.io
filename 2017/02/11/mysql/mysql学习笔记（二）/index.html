@@ -4,12 +4,15 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>nginx日志分割 | 刘宇帅的博客</title>
+    <title>mysql学习笔记（二） | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。按天分割日志$time_iso8601格式如下：20">
+    <meta name="description" content="选择优化的数据类型MySQL支持的数据类型非常多，选择正确的数据类型对于获得高性能至关重要。下面有几个数据类型选择的原则
+
+更小的通常更好：尽量选择可以正确存储数据的最小数据类型。更小的暂用空间，消耗资源更少。
+简单就好：简单的数据类型通常需要更少的cpu周期。例如可以使用整数存储的就不要使用字符串">
     
     
     
@@ -67,7 +70,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/nginx日志分割/" title="nginx日志分割" itemprop="url">nginx日志分割</a>
+      <a href="/2017/02/11/mysql/mysql学习笔记（二）/" title="mysql学习笔记（二）" itemprop="url">mysql学习笔记（二）</a>
   </h1>
   <p class="article-author">By
     
@@ -78,8 +81,8 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:10:13.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:51:17.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-11T15:55:11.000Z" itemprop="datePublished">2017-02-11</time>
+    Updated:<time datetime="2017-02-11T16:52:06.000Z" itemprop="dateModified">2017-02-12</time>
     
   </p>
 </header>
@@ -88,48 +91,57 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li></ol>
 		</div>
 		
-		<p>配置日志循环，而不需使用logrotate或配置cron任务。需要使用到$time_iso8601 内嵌变量来获取时间。$time_iso8601格式如下：2015-08-07T18:12:02+02:00。然后使用正则表达式来获取所需时间的数据。<br>按天分割日志<br>$time_iso8601格式如下：2015-08-07T18:12:02+02:00<br>按天分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})&quot;) {
-    set $year $1;
-    set $month $2;
-    set $day $3;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-access.log;
-</code></pre><p>也可以使用Perl语法来捕获，如下：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})&quot;) {}
-access_log /data/logs/nginx/www.ttlsa.com-$year-$month-$day-access.log;
-</code></pre><p>按小时分割：</p>
-<pre><code>if ($time_iso8601 ~ &quot;^(\d{4})-(\d{2})-(\d{2})T(\d{2})&quot;)
-{
-    set $year $1;
-    set $month $2;
-    set $day $3;
-    set $hour $4;
-}
-access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
-</code></pre>  
+		<h2 id="选择优化的数据类型"><a href="#选择优化的数据类型" class="headerlink" title="选择优化的数据类型"></a>选择优化的数据类型</h2><p>MySQL支持的数据类型非常多，选择正确的数据类型对于获得高性能至关重要。<br>下面有几个数据类型选择的原则</p>
+<ul>
+<li>更小的通常更好：尽量选择可以正确存储数据的最小数据类型。更小的暂用空间，消耗资源更少。</li>
+<li>简单就好：简单的数据类型通常需要更少的cpu周期。例如可以使用整数存储的就不要使用字符串了。</li>
+<li>尽量避免NULL：大部分设计的时候通常会跟列添加默认值null。列值为null的，在mysql建立索引，索引统计，值比较更加复杂。</li>
+</ul>
+<h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2><p>整数类型：tinyint、smallinit、mediumint、int、bigint,<br>分别使用8,16,24,32,64位的存储空间。他们存储的值范围是$-2^(n-2)$<br>到$2^(n-1)-1$。可以设置unsigned设置存储为不存储负数，则整数存储范围加倍。<br>但是两者的性能是一致的。</p>
+<blockquote>
+<p>tips：mysql可以为整数类型指定宽度。例：int(11),int(1)。对大多数应用是无用的，两者的效果一样。只是<br>对一部分交互工具展示的字符个数有作用。</p>
+</blockquote>
+<h2 id="实数类型"><a href="#实数类型" class="headerlink" title="实数类型"></a>实数类型</h2><p>不精确类型：float,double<br>精确类型：decimal</p>
+<h2 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h2><ol>
+<li>varchar： 用于存储可边长字符串。比定长类型节省空间，该类型只占用必要的空间。<br>varchar需要一个或两个额外的字节记录字符串的长度。如果列长度小于等于255则只需要一个字节，<br>或则需要两个字节。使用场景：最大长度比平均长度长很多，变化较少。</li>
+<li><p>char：char类型是定长的，mysql根据定义长度分配足够的空间。char类型适合存储长度<br>接近同一个值的字段类型。</p>
+<blockquote>
+<p>mysql储存char类型的时候会删除字符串末尾的空格。</p>
+</blockquote>
+</li>
+<li><p>blob和text：为了存储很大的的数据而设计的字符串类型。<br>包括：tinytext,smalltext,text,mediumtext,longtext和tinyblog,smallblob,<br>blob,longblob。其中smalltext跟text一样，blob和smallblob一样。</p>
+</li>
+<li><p>使用枚举类型代替字符串</p>
+</li>
+</ol>
+<p>某列的可取值是有限的情况下，可以使用枚举类型。</p>
+<pre><code>mysql&gt; create table enum_test(
+    -&gt; e enum(&#39;fish&#39;, &#39;apple&#39;, &#39;dog&#39;) not null
+    -&gt;);
+</code></pre><p>每行存储的实际上是整数，排序的话也是按整数排序。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/nginx/">nginx</a>
+  <span></span> <a href="/tags/mysql/">mysql</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/nginx/">nginx</a>
+  <a class="article-category-link" href="/categories/mysql/">mysql</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/nginx日志分割/" data-title="nginx日志分割 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/11/mysql/mysql学习笔记（二）/" data-title="mysql学习笔记（二） | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -138,19 +150,11 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/09/php链接mysql数据库的方式/" title="php链接mysql数据库的方式">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  php链接mysql数据库的方式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/02/08/nginx-conf配置详解/"  title="nginx conf配置详解">
+<a href="/2017/02/11/mysql/mysql常用语句及查询/"  title="mysql常用语句及查询">
  <strong>NEXT:</strong><br/> 
- <span>nginx conf配置详解
+ <span>mysql常用语句及查询
 </span>
 </a>
 </div>
@@ -167,7 +171,7 @@ access_log /data/logs/nginx/test.com-$year-$month-$day-$hour-access.log;
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li></ol>
   </div>
 
 <div id="asidepart">
