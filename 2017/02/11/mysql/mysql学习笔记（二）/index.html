@@ -82,7 +82,7 @@
   </p>
   <p class="article-time">
     <time datetime="2017-02-11T15:55:11.000Z" itemprop="datePublished">2017-02-11</time>
-    Updated:<time datetime="2017-02-12T16:02:54.000Z" itemprop="dateModified">2017-02-13</time>
+    Updated:<time datetime="2017-02-12T16:22:28.000Z" itemprop="dateModified">2017-02-13</time>
     
   </p>
 </header>
@@ -91,7 +91,7 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识符选择"><span class="toc-number">7.</span> <span class="toc-text">标识符选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊数据类型"><span class="toc-number">8.</span> <span class="toc-text">特殊数据类型</span></a></li></ol>
 		</div>
 		
 		<h2 id="选择优化的数据类型"><a href="#选择优化的数据类型" class="headerlink" title="选择优化的数据类型"></a>选择优化的数据类型</h2><p>MySQL支持的数据类型非常多，选择正确的数据类型对于获得高性能至关重要。<br>下面有几个数据类型选择的原则</p>
@@ -138,6 +138,18 @@ mysql&gt; select a, a+0 from bittest;
 <blockquote>
 <p>tips:在需要使用该类型数据时，可以使用int型来代替，例如tinyint表示八种true/false。相关逻辑实现可在自己代码里实现。</p>
 </blockquote>
+<h2 id="标识符选择"><a href="#标识符选择" class="headerlink" title="标识符选择"></a>标识符选择</h2><p>标识符选择注意项：</p>
+<ol>
+<li>标识符和其在其他表里作为外键的定义要完全一致。例如：int型的unsigned也要一致。因为这些字段有可能<br>会在查询中做比较，类型不一致可能会造成性能问题或难以发现的错误。</li>
+<li>在可以满足值的范围的条件下并且预留未来增长的空间时，应该选择最小的数据类型。</li>
+<li>整数类型通常是标识符的最佳选择，因为他们很快并可以用auto_increment。</li>
+<li>尽量避免使用string类型，因为他们消耗空间且比整数类型慢。</li>
+</ol>
+<blockquote>
+<p>tips: 字符串的随机性比较大，插入值会写到索引的不同位置，insert会很慢，会导致页分裂，<br>磁盘随机访问，以及对于聚簇索引产生聚簇索引碎片。同样select也会很慢，因为逻辑上相同的行<br>可能分布在不同磁盘空间。</p>
+</blockquote>
+<h2 id="特殊数据类型"><a href="#特殊数据类型" class="headerlink" title="特殊数据类型"></a>特殊数据类型</h2><p>某些类型的数据不直接和内置类型一致。低于秒级精度的时间戳（使用bitint存储时间戳，或float类型小数部分存储秒以后的数值）就是一个例子。</p>
+<p>IPv4一本会本人存储为varchar(15)。但是实际上ip是32位无符号的整数。mysql的存储方式是存储为int型。<br>mysql并提供inet_aton() 和 inet_ntoa()函数在两者之间转换。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -187,7 +199,7 @@ mysql&gt; select a, a+0 from bittest;
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识符选择"><span class="toc-number">7.</span> <span class="toc-text">标识符选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊数据类型"><span class="toc-number">8.</span> <span class="toc-text">特殊数据类型</span></a></li></ol>
   </div>
 
 <div id="asidepart">
