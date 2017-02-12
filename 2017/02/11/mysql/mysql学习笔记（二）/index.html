@@ -39,7 +39,7 @@
 				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
 				<h2 class="blog-motto">记录程序学习之路</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -54,7 +54,7 @@
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:hexo.liuyushuai.com">
 					</form>
 					
@@ -82,7 +82,7 @@
   </p>
   <p class="article-time">
     <time datetime="2017-02-11T15:55:11.000Z" itemprop="datePublished">2017-02-11</time>
-    更新日期:<time datetime="2017-02-12T15:51:20.000Z" itemprop="dateModified">2017-02-12</time>
+    Updated:<time datetime="2017-02-12T16:02:54.000Z" itemprop="dateModified">2017-02-13</time>
     
   </p>
 </header>
@@ -90,7 +90,7 @@
 		
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目錄</strong>
+			<strong class="toc-title">Contents</strong>
 		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li></ol>
 		</div>
 		
@@ -124,17 +124,17 @@
 </code></pre><p>每行存储的实际上是整数，排序的话也是按整数排序。</p>
 <h2 id="日期和时间"><a href="#日期和时间" class="headerlink" title="日期和时间"></a>日期和时间</h2><p>datetime：这个类型保存的范围是1001-9999，精度为秒。<br>timestamp：保存1970-2038之间的时间值。timestamp的值受时区的影响。<br>timestamp不赋值时，系统会赋值为当前值。一般使用timestamp，比datetime效率高。</p>
 <h2 id="位数据类型"><a href="#位数据类型" class="headerlink" title="位数据类型"></a>位数据类型</h2><p>MySQL有少数几种存储类型使用位存储数据，这些不管地秤的存储格式和处理方式如何，从技术上来讲都是字符串类型。</p>
-<ol>
+<ul>
 <li>bit:可以使用bit类型存储一个或多个true/false值。bit(1)定义一个包含单个位的字段，以此类推。bit最大包含64个位。<br>Mysql把bit当做字符串类型，但检索到bit(1)结果是一个包含二进制0或1的字符串，而不是ASCII码’0’或’1’。<br>然而在数字的上下文中，结果将是位字符串转换成数字。<br>例如：<pre><code>mysql&gt; create table bittest(abit(8));
 mysql&gt; insert into bittest values(b&#39;0111001&#39;);
 mysql&gt; select a, a+0 from bittest;
 </code></pre></li>
-</ol>
-<p>result:<br>|a|a+0|<br>|-|-|<br>|9|57|</p>
+</ul>
+<p>result:<br>| a | a+0 |<br>| - | - |<br>| 9 | 57 |</p>
 <p>这样很容易让人费解或出错，所以尽量不要使用该类型。可以用char(0)或tinyint代替。</p>
-<ol>
+<ul>
 <li>set:如果保存很多true/false值，可以考虑合并这些列到一个set数据类型，它在mysql内部是以一系列打包的位的集合表示的。<br>这样有效利用了空间，并且mysql里有find_in_set()和field()这样的函数。方便在查询中使用。缺点是在添加一个新的值时，alter table代价比较高。</li>
-</ol>
+</ul>
 <blockquote>
 <p>tips:在需要使用该类型数据时，可以使用int型来代替，例如tinyint表示八种true/false。相关逻辑实现可在自己代码里实现。</p>
 </blockquote>
@@ -183,20 +183,20 @@ mysql&gt; select a, a+0 from bittest;
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目錄</strong>
+  <strong class="toc-title">Contents</strong>
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li></ol>
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分類</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 			<li><a href="/categories/mysql/" title="mysql">mysql<sup>3</sup></a></li>
@@ -213,7 +213,7 @@ mysql&gt; select a, a+0 from bittest;
 
   
   <div class="tagcloudlist">
-    <p class="asidetitle">標簽雲</p>
+    <p class="asidetitle">Tag Cloud</p>
     <div class="tagcloudlist clearfix">
        <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 13.33px;">存储引擎</a>
     </div>
@@ -221,7 +221,7 @@ mysql&gt; select a, a+0 from bittest;
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
       <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
       <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
