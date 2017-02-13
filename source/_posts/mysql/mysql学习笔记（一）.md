@@ -1,5 +1,5 @@
 ---
-title: mysqlx学习笔记（一）
+title: mysql学习笔记（一）
 date: 2017-02-10 23:48:45
 tags:
     - mysql
