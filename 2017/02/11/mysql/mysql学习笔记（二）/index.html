@@ -82,7 +82,7 @@
   </p>
   <p class="article-time">
     <time datetime="2017-02-11T15:55:11.000Z" itemprop="datePublished">2017-02-11</time>
-    Updated:<time datetime="2017-02-12T17:25:42.000Z" itemprop="dateModified">2017-02-13</time>
+    Updated:<time datetime="2017-02-13T08:27:16.000Z" itemprop="dateModified">2017-02-13</time>
     
   </p>
 </header>
@@ -91,7 +91,7 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识符选择"><span class="toc-number">7.</span> <span class="toc-text">标识符选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊数据类型"><span class="toc-number">8.</span> <span class="toc-text">特殊数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-schema设计中的陷阱"><span class="toc-number">9.</span> <span class="toc-text">MySQL schema设计中的陷阱</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识符选择"><span class="toc-number">7.</span> <span class="toc-text">标识符选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊数据类型"><span class="toc-number">8.</span> <span class="toc-text">特殊数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-schema设计中的陷阱"><span class="toc-number">9.</span> <span class="toc-text">MySQL schema设计中的陷阱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存表和汇总表"><span class="toc-number">10.</span> <span class="toc-text">缓存表和汇总表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#物化视图表"><span class="toc-number">10.1.</span> <span class="toc-text">物化视图表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计数器表"><span class="toc-number">10.2.</span> <span class="toc-text">计数器表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加快alter-table的速度"><span class="toc-number">11.</span> <span class="toc-text">加快alter table的速度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只修改-frm文件"><span class="toc-number">11.1.</span> <span class="toc-text">只修改.frm文件</span></a></li></ol></li></ol>
 		</div>
 		
 		<h2 id="选择优化的数据类型"><a href="#选择优化的数据类型" class="headerlink" title="选择优化的数据类型"></a>选择优化的数据类型</h2><p>MySQL支持的数据类型非常多，选择正确的数据类型对于获得高性能至关重要。<br>下面有几个数据类型选择的原则</p>
@@ -161,6 +161,34 @@ mysq &gt; country enu(&#39;&#39;,&#39;0&#39;,&#39;1&#39;,&#39;2&#39;……&#39;3
 </code></pre><p>这样就太过复杂了。</p>
 </li>
 </ul>
+<h2 id="缓存表和汇总表"><a href="#缓存表和汇总表" class="headerlink" title="缓存表和汇总表"></a>缓存表和汇总表</h2><p>有时候提升mysql的性能的办法是在一张表里保存衍生的冗余数据。有时候也需要创建独立的缓存表或汇总表。</p>
+<ol>
+<li><p>缓存表：有时候可能需要各种不同的索引组合去查询数据，数据来源也可能不是单一表，这个时候就需要创建包含仅需要的列的一个独立表。<br>混存表可以使用不同的存储引擎（例如：利用MyISAM来支持全文索引）,或则使用专门的检索服务例如solr,lucene等。</p>
+</li>
+<li><p>汇总表：汇总表一般用来保存group得到的结果（例如：当前所有的聊天消息数量等）。这类可以每小时统计以下前一个小时数据表里（保存所有数据的列表）的数量，并把每小时的数量保存在一个单独表即汇总表，这样当查询当前一共有多少消息时，只需要根据汇总表里查出当前小时以前的所有数量，再查当前小时在数据表里的数量相加即可。</p>
+</li>
+</ol>
+<blockquote>
+<p>统计某商品收藏人数实现：该数据的实时性要求并不高，可以根据商品id在redis里记录收藏数量及收藏id，定时去查询收藏表，并把大于该收藏id的收藏条数加到redis里维护的值上，修改当前收藏id即可。</p>
+</blockquote>
+<h3 id="物化视图表"><a href="#物化视图表" class="headerlink" title="物化视图表"></a>物化视图表</h3><p>许多数据库实现了物化视图表，该表是计算当前磁盘上所有信息得到的表，并根据各种策略（日志记录等）去更新。物化视图跟缓存表和汇总表相比，物化视图提取表的原始修改，不再去查表统计，所以性能更好。<br>mysql虽然没有实现物化视图，但是可以通过开源工具flexviews等来实现。</p>
+<h3 id="计数器表"><a href="#计数器表" class="headerlink" title="计数器表"></a>计数器表</h3><p>前面统计商品的数量是使用redis实现的，并不实时，可以使用如下方式增加实时和并发。</p>
+<p>在表里存储10行，slot=1、slot=2、……slot=10。每次更新的时候随机更新某一行。</p>
+<pre><code>mysql&gt; update num_table set count=count+1 where slot=rand()*10;
+</code></pre><p>统计总数量：</p>
+<pre><code>mysql&gt; select sum(count) from num_table;
+</code></pre><h2 id="加快alter-table的速度"><a href="#加快alter-table的速度" class="headerlink" title="加快alter table的速度"></a>加快alter table的速度</h2><p>mysql的alter table操作对于大表而言是个大问题。mysql大部分修改表结构的方式是：创建相同结构的新表，把老表数据倒入新表，删除老表。该过程对内存，索引大小的依赖很大。该过程时间会很长，甚至数天时间，而且期间会锁表，但是服务中断，所以要谨慎操作。</p>
+<h3 id="只修改-frm文件"><a href="#只修改-frm文件" class="headerlink" title="只修改.frm文件"></a>只修改.frm文件</h3><p><strong>该方式非官方支持，谨慎使用</strong><br>可使用的修改类型：</p>
+<ul>
+<li>移除一个列的的auto_increment属性</li>
+<li>增加、移除、更改 enum和set常量<br>一共四步：</li>
+</ul>
+<ol>
+<li>创建一个相同结构的空表，并对空表进行想用的修改（例如删除id的自增：alter table test_table modify column id int)</li>
+<li>执行flush tables with read lock.这将关闭所有正在使用表，并禁止任何表被打开。</li>
+<li>交换两个表的.frm文件</li>
+<li>执行 unlock tables解除步骤2的锁定</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -210,7 +238,7 @@ mysq &gt; country enu(&#39;&#39;,&#39;0&#39;,&#39;1&#39;,&#39;2&#39;……&#39;3
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识符选择"><span class="toc-number">7.</span> <span class="toc-text">标识符选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊数据类型"><span class="toc-number">8.</span> <span class="toc-text">特殊数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-schema设计中的陷阱"><span class="toc-number">9.</span> <span class="toc-text">MySQL schema设计中的陷阱</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择优化的数据类型"><span class="toc-number">1.</span> <span class="toc-text">选择优化的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整数类型"><span class="toc-number">2.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实数类型"><span class="toc-number">3.</span> <span class="toc-text">实数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串类型"><span class="toc-number">4.</span> <span class="toc-text">字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期和时间"><span class="toc-number">5.</span> <span class="toc-text">日期和时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位数据类型"><span class="toc-number">6.</span> <span class="toc-text">位数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识符选择"><span class="toc-number">7.</span> <span class="toc-text">标识符选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊数据类型"><span class="toc-number">8.</span> <span class="toc-text">特殊数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-schema设计中的陷阱"><span class="toc-number">9.</span> <span class="toc-text">MySQL schema设计中的陷阱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存表和汇总表"><span class="toc-number">10.</span> <span class="toc-text">缓存表和汇总表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#物化视图表"><span class="toc-number">10.1.</span> <span class="toc-text">物化视图表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计数器表"><span class="toc-number">10.2.</span> <span class="toc-text">计数器表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加快alter-table的速度"><span class="toc-number">11.</span> <span class="toc-text">加快alter table的速度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只修改-frm文件"><span class="toc-number">11.1.</span> <span class="toc-text">只修改.frm文件</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
