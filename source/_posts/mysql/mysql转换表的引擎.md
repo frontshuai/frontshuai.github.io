@@ -3,6 +3,7 @@ title: mysql转换表的引擎
 date: 2017-02-11 02:04:45
 tags:
     - mysql
+categories: mysql
 ---
 三种方式
 1. alter table
