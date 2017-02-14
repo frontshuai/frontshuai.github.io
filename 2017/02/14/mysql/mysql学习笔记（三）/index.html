@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>2017继续北漂 | 刘宇帅的博客</title>
+    <title>mysql学习笔记（三） | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="2017新的一年继续北漂！">
+    <meta name="description" content="创建高性能索引索引是存储引擎中快速找到记录的一种数据结构。在数据量比较小的表里，索引作用并不明显，但是在数据量较大时，索引对性能的提升非常重要。
+索引类别B-Tree索引当人们讨论索引时，如果没有明确指定类型，多半说的时B-Tree索引,B-Tree索引使用B-Tree的数据结构存储索引。B-Tre">
     
     
     
@@ -67,7 +68,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/2017继续北漂/" title="2017继续北漂" itemprop="url">2017继续北漂</a>
+      <a href="/2017/02/14/mysql/mysql学习笔记（三）/" title="mysql学习笔记（三）" itemprop="url">mysql学习笔记（三）</a>
   </h1>
   <p class="article-author">By
     
@@ -78,54 +79,55 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:35:18.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:51:05.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-14T07:48:45.000Z" itemprop="datePublished">2017-02-14</time>
+    Updated:<time datetime="2017-02-14T08:48:47.000Z" itemprop="dateModified">2017-02-14</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img fancybox" href="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG1.jpeg" rel="gallery_ciz5ajkr20000qz3jl0tnuhaa">
-        <img src="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG1.jpeg" itemprop="image">
-      </a>
-    
-      <a class="article-gallery-img fancybox" href="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG2.jpeg" rel="gallery_ciz5ajkr20000qz3jl0tnuhaa">
-        <img src="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG2.jpeg" itemprop="image">
-      </a>
-    
-  </div>
-</div>
-
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创建高性能索引"><span class="toc-number">1.</span> <span class="toc-text">创建高性能索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引类别"><span class="toc-number">1.1.</span> <span class="toc-text">索引类别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree索引"><span class="toc-number">1.1.1.</span> <span class="toc-text">B-Tree索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希索引"><span class="toc-number">1.1.2.</span> <span class="toc-text">哈希索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高性能索引策略"><span class="toc-number">1.2.</span> <span class="toc-text">高性能索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#独立的列"><span class="toc-number">1.2.1.</span> <span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-number">1.2.2.</span> <span class="toc-text">前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多列索引"><span class="toc-number">1.2.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的索引列顺序"><span class="toc-number">1.2.4.</span> <span class="toc-text">选择合适的索引列顺序</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
-		<p>2017新的一年继续北漂！</p>
+		<h1 id="创建高性能索引"><a href="#创建高性能索引" class="headerlink" title="创建高性能索引"></a>创建高性能索引</h1><p>索引是存储引擎中快速找到记录的一种数据结构。<br>在数据量比较小的表里，索引作用并不明显，但是在数据量较大时，索引对性能的提升非常重要。</p>
+<h2 id="索引类别"><a href="#索引类别" class="headerlink" title="索引类别"></a>索引类别</h2><h3 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h3><p>当人们讨论索引时，如果没有明确指定类型，多半说的时B-Tree索引,B-Tree索引使用B-Tree的数据结构存储索引。<br>B-Tree适用于全值键、键值范围、键前缀查找（即索引定义的最左边列）。</p>
+<h3 id="哈希索引"><a href="#哈希索引" class="headerlink" title="哈希索引"></a>哈希索引</h3><p>基于哈希表实现，只有精确匹配所有所有列的查询才有效。<br>哈希表限制：</p>
+<ul>
+<li>哈表索引只保存哈希值和行指针，不存储行字段，所以不能使用索引中的值避免行读取。</li>
+<li>哈希索引并不是按索引值顺序存储的，所以也无法用于排序。</li>
+<li>哈希索引也不支持部分索引列匹配查找。</li>
+<li>哈希索引只支持等值比较</li>
+</ul>
+<h2 id="高性能索引策略"><a href="#高性能索引策略" class="headerlink" title="高性能索引策略"></a>高性能索引策略</h2><h3 id="独立的列"><a href="#独立的列" class="headerlink" title="独立的列"></a>独立的列</h3><p>如果查询的列不是独立的则mysql无法使用索引。’独立的列’是值索引列不能是表达式的一部分或则函数的参数。<br>下面例子无法使用id索引：</p>
+<pre><code>mysql&gt; select * from user where id+1=5;
+</code></pre><p>该例子是要查id=6的，但是因为写的格式问题，mysql无法理解。就无法使用索引。</p>
+<h3 id="前缀索引和索引选择性"><a href="#前缀索引和索引选择性" class="headerlink" title="前缀索引和索引选择性"></a>前缀索引和索引选择性</h3><p>有时候需要对长字符串进行索引，这会让索引变得很慢。前面有提到使用类hash的方式实现。也可以使用前缀索引的方式。<br>前缀索引就是取字符串的前n位进行索引，根据前n位进行索引再去检索匹配到的结果集。<br>索引的选择性：选择不同长度的前缀作为索引再不同的引用下不一样。根据具体的情况去选择最合适的前缀索引。</p>
+<h3 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h3><p>多列索引并不是值未多个列单独建立索引，而是多列建立联合索引。<br>例如建立id和性别的多列索引：</p>
+<pre><code>mysql&gt; alter table user add index ix_id_sex(id,sex);
+</code></pre><h3 id="选择合适的索引列顺序"><a href="#选择合适的索引列顺序" class="headerlink" title="选择合适的索引列顺序"></a>选择合适的索引列顺序</h3><p>在添加多列索引的时候一定要选择合适的索引列顺序。不同的顺序在不同场景下可能差别会很大。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/北京/">北京</a>
+  <span></span> <a href="/tags/mysql/">mysql</a><a href="/tags/索引/">索引</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/生活/">生活</a>
+  <a class="article-category-link" href="/categories/mysql/">mysql</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/2017继续北漂/" data-title="2017继续北漂 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/14/mysql/mysql学习笔记（三）/" data-title="mysql学习笔记（三） | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -134,19 +136,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/10/php类型转换/" title="php类型转换">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  php类型转换</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/02/09/php链接mysql数据库的方式/"  title="php链接mysql数据库的方式">
+<a href="/2017/02/14/B-tree/"  title="B-tree">
  <strong>NEXT:</strong><br/> 
- <span>php链接mysql数据库的方式
+ <span>B-tree
 </span>
 </a>
 </div>
@@ -163,7 +157,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创建高性能索引"><span class="toc-number">1.</span> <span class="toc-text">创建高性能索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引类别"><span class="toc-number">1.1.</span> <span class="toc-text">索引类别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree索引"><span class="toc-number">1.1.1.</span> <span class="toc-text">B-Tree索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希索引"><span class="toc-number">1.1.2.</span> <span class="toc-text">哈希索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高性能索引策略"><span class="toc-number">1.2.</span> <span class="toc-text">高性能索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#独立的列"><span class="toc-number">1.2.1.</span> <span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-number">1.2.2.</span> <span class="toc-text">前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多列索引"><span class="toc-number">1.2.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的索引列顺序"><span class="toc-number">1.2.4.</span> <span class="toc-text">选择合适的索引列顺序</span></a></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
