@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>2017继续北漂 | 刘宇帅的博客</title>
+    <title>mysql学习笔记（四） | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="2017新的一年继续北漂！">
+    <meta name="description" content="mysql查询优化mysql性能优化需要从查询优化、索引优化、库表结构优化着手。这里主要是讨论查询优化
+为什么查询速度会慢在一个耗时的查询中，一般都会有一些不必要的额外操作、某些操作被额外的重复执行多次、某些操作执行的过慢等导致的。
+慢查询基础：优化数据访问查询性能低下的最基本的原因是访问的数据太多">
     
     
     
@@ -67,7 +69,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/09/2017继续北漂/" title="2017继续北漂" itemprop="url">2017继续北漂</a>
+      <a href="/2017/02/14/mysql/mysql学习笔记（四）/" title="mysql学习笔记（四）" itemprop="url">mysql学习笔记（四）</a>
   </h1>
   <p class="article-author">By
     
@@ -78,54 +80,58 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-09T08:35:18.000Z" itemprop="datePublished">2017-02-09</time>
-    Updated:<time datetime="2017-02-09T08:51:05.000Z" itemprop="dateModified">2017-02-09</time>
+    <time datetime="2017-02-14T08:58:57.000Z" itemprop="datePublished">2017-02-14</time>
+    Updated:<time datetime="2017-02-15T15:10:11.000Z" itemprop="dateModified">2017-02-15</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img fancybox" href="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG1.jpeg" rel="gallery_cizbem2je0001dubepjcgxlzq">
-        <img src="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG1.jpeg" itemprop="image">
-      </a>
-    
-      <a class="article-gallery-img fancybox" href="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG2.jpeg" rel="gallery_cizbem2je0001dubepjcgxlzq">
-        <img src="http://ol3m0nyfn.bkt.clouddn.com/WechatIMG2.jpeg" itemprop="image">
-      </a>
-    
-  </div>
-</div>
-
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql查询优化"><span class="toc-number">1.</span> <span class="toc-text">mysql查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么查询速度会慢"><span class="toc-number">1.1.</span> <span class="toc-text">为什么查询速度会慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#慢查询基础：优化数据访问"><span class="toc-number">1.2.</span> <span class="toc-text">慢查询基础：优化数据访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#是否想数据库请求了不需要的数据"><span class="toc-number">1.2.1.</span> <span class="toc-text">是否想数据库请求了不需要的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql是否在扫描额外的记录"><span class="toc-number">1.2.2.</span> <span class="toc-text">mysql是否在扫描额外的记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重构查询方式"><span class="toc-number">1.3.</span> <span class="toc-text">重构查询方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一个复杂的查询还是多个简单查询"><span class="toc-number">1.3.1.</span> <span class="toc-text">一个复杂的查询还是多个简单查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切分查询"><span class="toc-number">1.3.2.</span> <span class="toc-text">切分查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分解关联查询"><span class="toc-number">1.3.3.</span> <span class="toc-text">分解关联查询</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
-		<p>2017新的一年继续北漂！</p>
+		<h1 id="mysql查询优化"><a href="#mysql查询优化" class="headerlink" title="mysql查询优化"></a>mysql查询优化</h1><p>mysql性能优化需要从查询优化、索引优化、库表结构优化着手。<br>这里主要是讨论查询优化</p>
+<h2 id="为什么查询速度会慢"><a href="#为什么查询速度会慢" class="headerlink" title="为什么查询速度会慢"></a>为什么查询速度会慢</h2><p>在一个耗时的查询中，一般都会有一些不必要的额外操作、某些操作被额外的重复执行多次、某些操作执行的过慢等导致的。</p>
+<h2 id="慢查询基础：优化数据访问"><a href="#慢查询基础：优化数据访问" class="headerlink" title="慢查询基础：优化数据访问"></a>慢查询基础：优化数据访问</h2><p>查询性能低下的最基本的原因是访问的数据太多，所以大部分可以通过减少访问的数据量的方式优化。<br>对于低效的查询，通过以下两个步骤分析：</p>
+<ol>
+<li>确定应用程序是否在检索大量超过需要的数据。这通常意味着访问了太多的行或列。</li>
+<li>确定mysql服务器是否在分析大量超过需要的数据行。</li>
+</ol>
+<h3 id="是否想数据库请求了不需要的数据"><a href="#是否想数据库请求了不需要的数据" class="headerlink" title="是否想数据库请求了不需要的数据"></a>是否想数据库请求了不需要的数据</h3><p>有些查询会请求超过需要的数据，然后这些多余的数据会被应用程序丢弃。这会给mysql带来额外的f负担，并增加网络开销，另外也会消耗应用服务器的cpu和内存。</p>
+<p>常见问题：</p>
+<ul>
+<li>查询不需要的记录：查询的时候查询过多的行，多余的行并无用。例如每次查询前10个记录的时候总是查出所有的结果。</li>
+<li>多表关联时返回全部列：在使用多表关联时只返回需要的字段，不要查询所有字段。</li>
+<li>总是取出全部列：不要每次select的时候总是使用 select * 返回所有列，只返回需要的字段。</li>
+<li>重复查询相同的数据：相同的数据总是重复的查询多次</li>
+</ul>
+<h3 id="mysql是否在扫描额外的记录"><a href="#mysql是否在扫描额外的记录" class="headerlink" title="mysql是否在扫描额外的记录"></a>mysql是否在扫描额外的记录</h3><p>在确认查询是否只返回需要数据以后，接下来应该看看查询为了返回结果是否扫描了过多的行。<br>衡量查询开销三个指标如下：</p>
+<ul>
+<li>响应时间</li>
+<li>扫描的行数</li>
+<li>返回的行数</li>
+</ul>
+<h2 id="重构查询方式"><a href="#重构查询方式" class="headerlink" title="重构查询方式"></a>重构查询方式</h2><h3 id="一个复杂的查询还是多个简单查询"><a href="#一个复杂的查询还是多个简单查询" class="headerlink" title="一个复杂的查询还是多个简单查询"></a>一个复杂的查询还是多个简单查询</h3><p>设计查询的时候有时候总是想用一次查询查出最终结果，这样导致sql写的会比较麻烦，性能也会很差。所以有时候可以考虑把复杂的查询分成多次，这样请求端也可以做一部分处理等。</p>
+<h3 id="切分查询"><a href="#切分查询" class="headerlink" title="切分查询"></a>切分查询</h3><p>一个大的返回结果的查询我们可以”分而治之”，每次查询一部分数据，分多次查询。<br>例如：查询10000条数据，但是数据量比较大，所以我们可以分为100次查询每次查询100条。</p>
+<h3 id="分解关联查询"><a href="#分解关联查询" class="headerlink" title="分解关联查询"></a>分解关联查询</h3><p>有时候一个复杂的关联查询会占用mysql服务器大量的内存和cpu。所以可以把关联查询分开，逻辑处理在应用程序层进行一部分处理。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/北京/">北京</a>
+  <span></span> <a href="/tags/mysql/">mysql</a><a href="/tags/查询优化/">查询优化</a>
   </div>
 
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/生活/">生活</a>
-</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/09/2017继续北漂/" data-title="2017继续北漂 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/14/mysql/mysql学习笔记（四）/" data-title="mysql学习笔记（四） | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -135,18 +141,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/02/10/php类型转换/" title="php类型转换">
+ <a href="/2017/02/15/mysql/mysql学习笔记（五）/" title="mysql学习笔记（五）">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  php类型转换</span>
+  mysql学习笔记（五）</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/02/09/php链接mysql数据库的方式/"  title="php链接mysql数据库的方式">
+<a href="/2017/02/14/mysql/mysql学习笔记（三）/"  title="mysql学习笔记（三）">
  <strong>NEXT:</strong><br/> 
- <span>php链接mysql数据库的方式
+ <span>mysql学习笔记（三）
 </span>
 </a>
 </div>
@@ -163,7 +169,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql查询优化"><span class="toc-number">1.</span> <span class="toc-text">mysql查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么查询速度会慢"><span class="toc-number">1.1.</span> <span class="toc-text">为什么查询速度会慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#慢查询基础：优化数据访问"><span class="toc-number">1.2.</span> <span class="toc-text">慢查询基础：优化数据访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#是否想数据库请求了不需要的数据"><span class="toc-number">1.2.1.</span> <span class="toc-text">是否想数据库请求了不需要的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql是否在扫描额外的记录"><span class="toc-number">1.2.2.</span> <span class="toc-text">mysql是否在扫描额外的记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重构查询方式"><span class="toc-number">1.3.</span> <span class="toc-text">重构查询方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一个复杂的查询还是多个简单查询"><span class="toc-number">1.3.1.</span> <span class="toc-text">一个复杂的查询还是多个简单查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切分查询"><span class="toc-number">1.3.2.</span> <span class="toc-text">切分查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分解关联查询"><span class="toc-number">1.3.3.</span> <span class="toc-text">分解关联查询</span></a></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
