@@ -9,12 +9,16 @@
     
     <meta name="author" content="刘宇帅">
     
-    <meta name="description" content="linux常用命令总结：awk grep sort uniq top df iostat等
-redis
-memcache
+    <meta name="description" content="学习计划：
+高性能mysql （done）
+常用sql查询
+linux常用命令总结：awk grep sort uniq top df iostat 网络 ？ 等(所有参数！！)
+redis(done)
+memcache(done)
 lucene
 solr
-各类数据结构和算法">
+各类数据结构和算法(ing)
+vue.js">
     
     
     
@@ -41,7 +45,7 @@ solr
 				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
 				<h2 class="blog-motto">记录程序学习之路</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -56,7 +60,7 @@ solr
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:hexo.liuyushuai.com">
 					</form>
 					
@@ -84,7 +88,7 @@ solr
   </p>
   <p class="article-time">
     <time datetime="2017-02-15T18:10:52.000Z" itemprop="datePublished">2017-02-16</time>
-    Updated:<time datetime="2017-02-18T15:40:43.000Z" itemprop="dateModified">2017-02-18</time>
+    更新日期:<time datetime="2017-02-24T15:12:29.000Z" itemprop="dateModified">2017-02-24</time>
     
   </p>
 </header>
@@ -92,17 +96,24 @@ solr
 		
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
-		
+			<strong class="toc-title">文章目錄</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习计划："><span class="toc-number">1.</span> <span class="toc-text">学习计划：</span></a></li></ol>
 		</div>
 		
-		<ol>
-<li>linux常用命令总结：awk grep sort uniq top df iostat等</li>
-<li>redis</li>
-<li>memcache</li>
+		<h2 id="学习计划："><a href="#学习计划：" class="headerlink" title="学习计划："></a>学习计划：</h2><ol>
+<li>高性能mysql （done）</li>
+<li>常用sql查询</li>
+<li>linux常用命令总结：awk grep sort uniq top df iostat 网络 ？ 等(所有参数！！)</li>
+<li>redis(done)</li>
+<li>memcache(done)</li>
 <li>lucene</li>
 <li>solr</li>
-<li>各类数据结构和算法</li>
+<li>各类数据结构和算法(ing)</li>
+<li>vue.js</li>
+<li>js基础</li>
+<li>php基础：例如魔术函数等</li>
+<li>php基础方法的实现：php读取一个文件等</li>
+<li>in_array()、empty、inode</li>
 </ol>
   
 	</div>
@@ -127,6 +138,14 @@ solr
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/02/19/mysql/mysql常用查询/" title="mysql/mysql常用查询">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  mysql/mysql常用查询</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/02/15/mysql/mysql学习笔记（五）/"  title="mysql学习笔记（五）">
@@ -144,20 +163,20 @@ solr
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
-  
+  <strong class="toc-title">文章目錄</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习计划："><span class="toc-number">1.</span> <span class="toc-text">学习计划：</span></a></li></ol>
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分類</p>
 		<ul>
 		
 			<li><a href="/categories/mysql/" title="mysql">mysql<sup>8</sup></a></li>
@@ -174,7 +193,7 @@ solr
 
   
   <div class="tagcloudlist">
-    <p class="asidetitle">Tag Cloud</p>
+    <p class="asidetitle">標簽雲</p>
     <div class="tagcloudlist clearfix">
        <a href="/tags/ToDoList/" style="font-size: 10px;">ToDoList</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/分区表/" style="font-size: 10px;">分区表</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 13.33px;">存储引擎</a> <a href="/tags/查询优化/" style="font-size: 10px;">查询优化</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a>
     </div>
@@ -182,7 +201,7 @@ solr
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
       <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
       <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>

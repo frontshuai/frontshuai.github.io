@@ -4,10 +4,15 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>mysql学习笔记（五） | 刘宇帅的博客</title>
+    <title>mysql常用语句 | 刘宇帅的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="刘宇帅">
+    
+    <meta name="description" content="基础操作
+登陆mysqlroot&amp;gt; mysql -u username -p
+回撤之后输入密码
+修改用户密码mysql&amp;gt; update user set password=password(&amp;quot;newPassword&amp;quot;) where user=&amp;quot;root&amp;qu">
     
     
     
@@ -65,7 +70,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/15/mysql/mysql学习笔记（五）/" title="mysql学习笔记（五）" itemprop="url">mysql学习笔记（五）</a>
+      <a href="/2017/02/11/mysql/mysql常用语句/" title="mysql常用语句" itemprop="url">mysql常用语句</a>
   </h1>
   <p class="article-author">By
     
@@ -76,8 +81,8 @@
 </span>
   </p>
   <p class="article-time">
-    <time datetime="2017-02-15T15:18:02.000Z" itemprop="datePublished">2017-02-15</time>
-    更新日期:<time datetime="2017-02-15T15:18:50.000Z" itemprop="dateModified">2017-02-15</time>
+    <time datetime="2017-02-10T18:16:39.000Z" itemprop="datePublished">2017-02-11</time>
+    更新日期:<time datetime="2017-02-18T16:58:41.000Z" itemprop="dateModified">2017-02-19</time>
     
   </p>
 </header>
@@ -86,16 +91,65 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础操作"><span class="toc-number">1.</span> <span class="toc-text">基础操作</span></a></li></ol>
 		</div>
 		
-		  
+		<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><ol>
+<li>登陆mysql<pre><code>root&gt; mysql -u username -p
+</code></pre>回撤之后输入密码</li>
+<li>修改用户密码<pre><code>mysql&gt; update user set password=password(&quot;newPassword&quot;) where user=&quot;root&quot;;
+</code></pre></li>
+<li>添加新用户<ul>
+<li>新用户test可以在任何机器上登陆，对所有库和表并有增删改查的权限<pre><code>mysql&gt; grant select,delete,update,create,drop on *.* to test@&quot;%&quot; identified by &quot;1234&quot;
+</code></pre></li>
+<li>test，对db1下所有表有权限，只能通过特定ip机器登陆<pre><code>mysql&gt; grant select,delete,update,create,drop on db1.* to test@&quot;10.127.10.20&quot; identified by &quot;1234&quot;
+</code></pre></li>
+</ul>
+</li>
+<li>对库的操作<ul>
+<li>创建库<pre><code>mysql&gt; create database db2;
+</code></pre></li>
+<li>显示所有数据库<pre><code>mysql&gt; show databases;
+</code></pre></li>
+<li>选中数据库<pre><code>mysql&gt; use db2;
+</code></pre></li>
+<li>删除数据库<pre><code>mysql&gt; drop database db2;
+</code></pre></li>
+</ul>
+</li>
+<li>对表的基本操作<ul>
+<li>创建表<pre><code>mysql&gt; create table tableName(&lt;字段名1&gt; &lt;类型1&gt; [,..&lt;字段名n&gt; &lt;类型n&gt;]);
+</code></pre></li>
+<li>删除表<pre><code>mysql&gt; drop table tableName;
+</code></pre></li>
+<li>插入数据<pre><code>mysql&gt; insert into &lt;表名&gt; [( &lt;字段名1&gt;[,..&lt;字段名n &gt; ])] values ( 值1 )[, ( 值n )];
+</code></pre></li>
+<li>选择数据<pre><code>mysql&gt; select &lt;字段1，字段2，...&gt; from &lt; 表名 &gt; where &lt; 表达式 &gt;;
+</code></pre></li>
+<li>删除数据<br>delete from 表名 where 表达式</li>
+<li>修改数据<br>update MyClass set name=’Mary’ where id=1;</li>
+<li>添加字段<br>alter table 表名 add字段 类型 其他;</li>
+<li>添加索引<br>alter table 表名 add index 索引名 (字段名1[，字段名2 …]);</li>
+<li>删除索引<br>alter table 表名 drop index 索引名;</li>
+<li>添加字段<br>ALTER TABLE table_name ADD field_name field_type;</li>
+<li>修改原字段<br>ALTER TABLE table_name CHANGE old_field_name new_field_name field_type;</li>
+<li>删除字段<br>ALTER TABLE table_name DROP field_name;</li>
+<li>修改表名<br>rename table 原表名 to 新表名;</li>
+</ul>
+</li>
+<li>导出数据<ul>
+<li>导出库数据<br>mysqldump -u 用户名 -p 数据库名 &gt; 导出的文件名</li>
+<li>导出表数据<br>mysqldump -u 用户名 -p 数据库名 表名&gt; 导出的文件名</li>
+</ul>
+</li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/mysql/">mysql</a><a href="/tags/分区表/">分区表</a>
+  <span></span> <a href="/tags/mysql/">mysql</a>
   </div>
 
 
@@ -108,7 +162,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://hexo.liuyushuai.com/2017/02/15/mysql/mysql学习笔记（五）/" data-title="mysql学习笔记（五） | 刘宇帅的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://hexo.liuyushuai.com/2017/02/11/mysql/mysql常用语句/" data-title="mysql常用语句 | 刘宇帅的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -118,18 +172,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/02/16/ToDoList/" title="ToDoList">
+ <a href="/2017/02/11/mysql/mysql学习笔记（二）/" title="mysql学习笔记（二）">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  ToDoList</span>
+  mysql学习笔记（二）</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/02/14/mysql/mysql学习笔记（四）/"  title="mysql学习笔记（四）">
+<a href="/2017/02/11/mysql/mysql转换表的引擎/"  title="mysql转换表的引擎">
  <strong>NEXT:</strong><br/> 
- <span>mysql学习笔记（四）
+ <span>mysql转换表的引擎
 </span>
 </a>
 </div>
@@ -146,7 +200,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础操作"><span class="toc-number">1.</span> <span class="toc-text">基础操作</span></a></li></ol>
   </div>
 
 <div id="asidepart">
