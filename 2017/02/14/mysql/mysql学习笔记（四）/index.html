@@ -38,7 +38,7 @@
 				<h1 class="site-name"><a href="/" title="刘宇帅的博客">刘宇帅的博客</a></h1>
 				<h2 class="blog-motto">记录程序学习之路</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -53,7 +53,7 @@
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:hexo.liuyushuai.com">
 					</form>
 					
@@ -81,7 +81,7 @@
   </p>
   <p class="article-time">
     <time datetime="2017-02-14T08:58:57.000Z" itemprop="datePublished">2017-02-14</time>
-    更新日期:<time datetime="2017-02-15T15:10:11.000Z" itemprop="dateModified">2017-02-15</time>
+    Updated:<time datetime="2017-02-15T15:10:11.000Z" itemprop="dateModified">2017-02-15</time>
     
   </p>
 </header>
@@ -89,7 +89,7 @@
 		
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目錄</strong>
+			<strong class="toc-title">Contents</strong>
 		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql查询优化"><span class="toc-number">1.</span> <span class="toc-text">mysql查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么查询速度会慢"><span class="toc-number">1.1.</span> <span class="toc-text">为什么查询速度会慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#慢查询基础：优化数据访问"><span class="toc-number">1.2.</span> <span class="toc-text">慢查询基础：优化数据访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#是否想数据库请求了不需要的数据"><span class="toc-number">1.2.1.</span> <span class="toc-text">是否想数据库请求了不需要的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql是否在扫描额外的记录"><span class="toc-number">1.2.2.</span> <span class="toc-text">mysql是否在扫描额外的记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重构查询方式"><span class="toc-number">1.3.</span> <span class="toc-text">重构查询方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一个复杂的查询还是多个简单查询"><span class="toc-number">1.3.1.</span> <span class="toc-text">一个复杂的查询还是多个简单查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切分查询"><span class="toc-number">1.3.2.</span> <span class="toc-text">切分查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分解关联查询"><span class="toc-number">1.3.3.</span> <span class="toc-text">分解关联查询</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
@@ -165,20 +165,20 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目錄</strong>
+  <strong class="toc-title">Contents</strong>
   <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql查询优化"><span class="toc-number">1.</span> <span class="toc-text">mysql查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么查询速度会慢"><span class="toc-number">1.1.</span> <span class="toc-text">为什么查询速度会慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#慢查询基础：优化数据访问"><span class="toc-number">1.2.</span> <span class="toc-text">慢查询基础：优化数据访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#是否想数据库请求了不需要的数据"><span class="toc-number">1.2.1.</span> <span class="toc-text">是否想数据库请求了不需要的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql是否在扫描额外的记录"><span class="toc-number">1.2.2.</span> <span class="toc-text">mysql是否在扫描额外的记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重构查询方式"><span class="toc-number">1.3.</span> <span class="toc-text">重构查询方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一个复杂的查询还是多个简单查询"><span class="toc-number">1.3.1.</span> <span class="toc-text">一个复杂的查询还是多个简单查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切分查询"><span class="toc-number">1.3.2.</span> <span class="toc-text">切分查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分解关联查询"><span class="toc-number">1.3.3.</span> <span class="toc-text">分解关联查询</span></a></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分類</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 			<li><a href="/categories/mysql/" title="mysql">mysql<sup>8</sup></a></li>
@@ -195,7 +195,7 @@
 
   
   <div class="tagcloudlist">
-    <p class="asidetitle">標簽雲</p>
+    <p class="asidetitle">Tag Cloud</p>
     <div class="tagcloudlist clearfix">
        <a href="/tags/ToDoList/" style="font-size: 10px;">ToDoList</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/php/" style="font-size: 13.33px;">php</a> <a href="/tags/分区表/" style="font-size: 10px;">分区表</a> <a href="/tags/北京/" style="font-size: 10px;">北京</a> <a href="/tags/存储引擎/" style="font-size: 13.33px;">存储引擎</a> <a href="/tags/查询优化/" style="font-size: 10px;">查询优化</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a>
     </div>
@@ -203,7 +203,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
       <li><a href="http://topjs.org" target="_blank" title="YangJian">topjs</a></li>
       <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
@@ -237,6 +237,8 @@
     本站总访问量<span id="busuanzi_value_site_pv"></span>次
 </span>
 		</p>
+	<p style="float: left;width: 100%;text-align: center;"> Copyright ©2015-2017 刘帅,All Rights Reserved <a href="http://www.miitbeian.gov.cn/">豫ICP备16012384号-1</a></p>
+
 </div>
 </footer>
     <script src="/js/jquery-2.1.0.min.js"></script>
