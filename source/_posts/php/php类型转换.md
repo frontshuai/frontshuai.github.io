@@ -1,6 +1,7 @@
 ---
 title: php类型转换
 date: 2017-02-10 14:51:31
+categories: php
 tags:
     - php
 ---

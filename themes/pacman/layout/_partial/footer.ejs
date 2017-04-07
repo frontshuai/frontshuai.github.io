@@ -1,43 +1,49 @@
-<div id="footer" >
-	<% if(theme.author_img_enable == true){ %>
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	<% } %>
-	<% if(theme.author.intro_line1&&theme.author.intro_line2){ %>
-	<section class="info">
-		<p> <%= theme.author.intro_line1 %> <br/>
-			<%= theme.author.intro_line2 %></p>
-	</section>
-	 <% } %>
-	<div class="social-font clearfix">
-		<% if(theme.author.weibo){ %>
-		<a href="http://weibo.com/<%= theme.author.weibo %>" target="_blank" title="weibo"></a>
-		<% } %>
-		<% if(theme.author.twitter){ %>
-		<a href="https://twitter.com/<%=theme.author.twitter %>" target="_blank" title="twitter"></a>
-		<% } %>
-		<% if(theme.author.github){ %>
-		<a href="https://github.com/<%=theme.author.github %>" target="_blank" title="github"></a>
-		<% } %>
-		<% if(theme.author.facebook){ %>
-		<a href="https://www.facebook.com/<%=theme.author.facebook %>" target="_blank" title="facebook"></a>
-		<% } %>
-		<% if(theme.author.linkedin){ %>
-        <a href="https://www.linkedin.com/<%=theme.author.linkedin %>" target="_blank" title="linkedin"></a>
+<!--备案需要隐藏-->
+<!--<div id="adWraper" style="width: 100%;overflow: scroll">-->
+    <!--<script type="text/javascript">-->
+        <!--var sogou_ad_id = 806464;-->
+        <!--var sogou_ad_height = 90;-->
+        <!--var sogou_ad_width = 950;-->
+    <!--</script>-->
+    <!--<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>-->
+<!--</div>-->
+<div id="footer">
+    <% if(theme.author_img_enable == true){ %>
+    <div class="line">
+        <span></span>
+        <div class="author"></div>
+    </div>
+    <% } %>
+    <% if(theme.author.intro_line1 && theme.author.intro_line2){ %>
+    <section class="info">
+        <p> <%= theme.author.intro_line1 %> <br/>
+            <%= theme.author.intro_line2 %></p>
+    </section>
+    <% } %>
+    <div class="social-font clearfix">
+        <% if(theme.author.weibo){ %>
+        <a href="http://weibo.com/<%= theme.author.weibo %>" target="_blank" title="weibo"></a>
         <% } %>
-	</div>
-		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © <%= new Date().getFullYear() %> 
-		<% if (config.author) { %>
-		<a href="<%= config.url %>" target="_blank" title="<%= config.author %>"><%= config.author %></a>
-		<% } else {%>
-		<a href="<%= config.url %>" title="<%= config.title %>"><%= config.title %></a>
-		<% } %>
-			本站点总访问量：<span id="busuanzi_container_site_pv">
-    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        <% if(theme.author.twitter){ %>
+        <a href="https://twitter.com/<%= theme.author.twitter %>" target="_blank" title="twitter"></a>
+        <% } %>
+        <% if(theme.author.github){ %>
+        <a href="https://github.com/<%= theme.author.github %>" target="_blank" title="github"></a>
+        <% } %>
+        <% if(theme.author.facebook){ %>
+        <a href="https://www.facebook.com/<%= theme.author.facebook %>" target="_blank" title="facebook"></a>
+        <% } %>
+        <% if(theme.author.linkedin){ %>
+        <a href="https://www.linkedin.com/<%= theme.author.linkedin %>" target="_blank" title="linkedin"></a>
+        <% } %>
+    </div>
+    <p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a
+                href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a>
+        本站点总访问量：<span id="busuanzi_container_site_pv">
+    <span id="busuanzi_value_site_pv"></span>次
 </span>
-		</p>
-	<p style="float: left;width: 100%;text-align: center;color:white"> Copyright ©2015-2017 刘帅,All Rights Reserved <a href="http://www.miitbeian.gov.cn/" style="color: white">豫ICP备16012384号-1</a></p>
+    </p>
+    <p style="float: left;width: 100%;text-align: center;color:white"> Copyright ©2015-2017 刘帅,All Rights Reserved <a
+                href="http://www.miitbeian.gov.cn/" style="color: white">豫ICP备16012384号-1</a></p>
 
 </div>
