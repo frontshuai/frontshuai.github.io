@@ -17,18 +17,37 @@
 					<% } %>
 					<li>
 					<% if	(theme.google_cse&&theme.google_cse.enable){ %>
-					<form class="search" action="<%- config.root %>search/index.html" method="get" accept-charset="utf-8">
+					<form class="search" name="f1" onsubmit="return g(this)" target="_blank">
 						<label>Search</label>
 						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="<%= __('search') %>" />
 					</form>
 					<% } else { %>
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+					<form class="search" name="f1" onsubmit="return g(this)" target="_blank">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="<%= __('search') %>" />
-						<input type="hidden" name="q" value="site:<%- config.url.replace(/^https?:\/\//, '') %>">
+						<input type="text" id="search" name="word" onfocus="checkHttps" size="30" maxlength="100" placeholder="<%= __('search') %>" />
+						<input type="submit"  value="搜索">
+						<input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+						<input name="cl" type="hidden" value="3">
+						<input name="ct" type="hidden">
+						<input name="si" type="hidden" value="www.liuyushuai.com">
 					</form>
 					<% } %>
 					</li>
 				</ul>
 			</nav>			
 </div>
+
+<script src="http://s1.bdstatic.com/r/www/cache/global/js/BaiduHttps_20150714_zhanzhang.js"></script>
+<script>
+    function checkHttps () {
+        BaiduHttps.useHttps();
+    };
+    function g(formname) {
+        var data = BaiduHttps.useHttps();
+        var url = '';
+        url = data.s == 0 ? "http://www.baidu.com/baidu" : 'https://www.baidu.com/baidu' + '?ssl_s=1&ssl_c' + data.ssl_code;
+		formname.ct.value = "2097152";
+        formname.action = url;
+        return true;
+    };
+</script>
